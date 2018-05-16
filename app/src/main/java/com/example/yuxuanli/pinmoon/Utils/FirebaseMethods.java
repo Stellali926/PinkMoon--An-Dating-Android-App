@@ -15,6 +15,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
+
 /**
  * Created by yuxuanli on 4/10/18.
  */
@@ -112,22 +114,27 @@ public class FirebaseMethods {
     }
 
     /**
-     * ADD information to the users nodes
-     * add information to the user_account_settings node
+     *
+     * @param phoneNumber
      * @param email
      * @param username
      * @param description
-     * @param website
      * @param profile_photo
+     * @param interests
      */
-    public void addNewUser(String email, String username, String description, String website, String profile_photo) {
+    public void addNewUser(String sex, String phoneNumber, String email, String username, String description, String profile_photo, List<String> interests) {
 
-        User user = new User(userID, 1, email, StringManipulation.condenseUsername(username));
+        User user = new User(userID, 1, email, username, profile_photo, interests, description );
 
-        myRef.child(mContext.getString(R.string.dbname_users))
-                .child(userID)
-                .setValue(user);
-
+        if (sex.equals("female")) {
+            myRef.child(mContext.getString(R.string.dbfemale))
+                    .child(userID)
+                    .setValue(user);
+        } else {
+            myRef.child(mContext.getString(R.string.dbmale))
+                    .child(userID)
+                    .setValue(user);
+        }
 
     }
 
@@ -144,33 +151,33 @@ public class FirebaseMethods {
 
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-            //users node
-            if (ds.getKey().equals(mContext.getString(R.string.dbname_users))) {
-                Log.d(TAG, "getUserAccountSettings: datasnapshot: " + ds.child(userID));
-
-                user.setUsername(
-                        ds.child(userID)
-                                .getValue(User.class)
-                                .getUsername()
-                );
-                user.setEmail(
-                        ds.child(userID)
-                                .getValue(User.class)
-                                .getEmail()
-                );
-                user.setPhone_number(
-                        ds.child(userID)
-                                .getValue(User.class)
-                                .getPhone_number()
-                );
-                user.setUser_id(
-                        ds.child(userID)
-                                .getValue(User.class)
-                                .getUser_id()
-                );
-
-                Log.d(TAG, "getUserAccountSettings: retrieved user information: " + user.toString());
-            }
+//            //users node
+//            if (ds.getKey().equals(mContext.getString(R.string.dbmale))) {
+//                Log.d(TAG, "getUserAccountSettings: datasnapshot: " + ds.child(userID));
+//
+//                user.setUsername(
+//                        ds.child(userID)
+//                                .getValue(User.class)
+//                                .getUsername()
+//                );
+//                user.setEmail(
+//                        ds.child(userID)
+//                                .getValue(User.class)
+//                                .getEmail()
+//                );
+//                user.setPhone_number(
+//                        ds.child(userID)
+//                                .getValue(User.class)
+//                                .getPhone_number()
+//                );
+//                user.setUser_id(
+//                        ds.child(userID)
+//                                .getValue(User.class)
+//                                .getUser_id()
+//                );
+//
+//                Log.d(TAG, "getUserAccountSettings: retrieved user information: " + user.toString());
+//            }
         }
 
         return new UserSettings(user);

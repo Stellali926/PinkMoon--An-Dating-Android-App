@@ -22,6 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Register extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
 
@@ -64,7 +67,6 @@ public class Register extends AppCompatActivity {
 
                 if (checkInputs(email, username, password)) {
                     mProgressBar.setVisibility(View.VISIBLE);
-                    loadingPleaseWait.setVisibility(View.VISIBLE);
 
                     firebaseMethods.registerNewEmail(email, password, username);
                 }
@@ -87,12 +89,10 @@ public class Register extends AppCompatActivity {
         mUsername = (EditText) findViewById(R.id.input_username);
         btnRegister = (Button) findViewById(R.id.btn_register);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        loadingPleaseWait = (TextView) findViewById(R.id.loadingPleaseWait);
         mPassword = (EditText) findViewById(R.id.input_password);
         mContext = Register.this;
 
         mProgressBar.setVisibility(View.GONE);
-        loadingPleaseWait.setVisibility(View.GONE);
     }
 
     private boolean isStringNull(String string) {
@@ -137,7 +137,7 @@ public class Register extends AppCompatActivity {
 
                             //add new user to the database
                             //add new_user_account setting to the
-                            firebaseMethods.addNewUser(email, username, "", "","");
+                            firebaseMethods.addNewUser("female", email, username, "","", "", new ArrayList<String>());
 
                             Toast.makeText(mContext, "Signup successful. Sending verification email.", Toast.LENGTH_SHORT).show();
 
