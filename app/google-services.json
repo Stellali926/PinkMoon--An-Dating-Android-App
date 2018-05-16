@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "389570364574",
+    "firebase_url": "https://pinmoon-e044f.firebaseio.com",
+    "project_id": "pinmoon-e044f",
+    "storage_bucket": "pinmoon-e044f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389570364574:android:5d4a057b5d29b7af",
+        "android_client_info": {
+          "package_name": "com.example.yuxuanli.pinmoon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389570364574-qcpf7cujmhitg0g32g5dun0dbi611983.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yuxuanli.pinmoon",
+            "certificate_hash": "b420bd195118f4422a43abfd41fbc22ee07f9b3e"
+          }
+        },
+        {
+          "client_id": "389570364574-tp6on3bi89s22bphej5jrebb936teoac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRmOt9cyOpU74a9MG21WcclNH5QESQ9Tk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389570364574-tp6on3bi89s22bphej5jrebb936teoac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
