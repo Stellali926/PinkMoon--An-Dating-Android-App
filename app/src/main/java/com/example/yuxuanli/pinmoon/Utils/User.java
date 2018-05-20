@@ -8,10 +8,10 @@ import java.util.List;
 
 public class User {
     private String user_id;
-    private long phone_number;
+    private String phone_number;
     private String email;
     private String username;
-    private String profile_photo;
+    private int profile_photo;
     private List<String> interests;
     private String description;
 
@@ -19,7 +19,7 @@ public class User {
     public User() {
     }
 
-    public User(String user_id, long phone_number, String email, String username, String profile_photo, List<String> interests, String description) {
+    public User(String user_id, String phone_number, String email, String username, int profile_photo, List<String> interests, String description) {
         this.user_id = user_id;
         this.phone_number = phone_number;
         this.email = email;
@@ -37,11 +37,11 @@ public class User {
         this.user_id = user_id;
     }
 
-    public long getPhone_number() {
+    public String getPhone_number() {
         return phone_number;
     }
 
-    public void setPhone_number(long phone_number) {
+    public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
 
@@ -61,11 +61,11 @@ public class User {
         this.username = username;
     }
 
-    public String getProfile_photo() {
+    public int getProfile_photo() {
         return profile_photo;
     }
 
-    public void setProfile_photo(String profile_photo) {
+    public void setProfile_photo(int profile_photo) {
         this.profile_photo = profile_photo;
     }
 

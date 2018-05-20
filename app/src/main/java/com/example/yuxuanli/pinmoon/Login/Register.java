@@ -137,7 +137,7 @@ public class Register extends AppCompatActivity {
 
                             //add new user to the database
                             //add new_user_account setting to the
-                            firebaseMethods.addNewUser("female", email, username, "","", "", new ArrayList<String>());
+                            firebaseMethods.addNewUser("female", "", email, username, "", 0, new ArrayList<String>());
 
                             Toast.makeText(mContext, "Signup successful. Sending verification email.", Toast.LENGTH_SHORT).show();
 

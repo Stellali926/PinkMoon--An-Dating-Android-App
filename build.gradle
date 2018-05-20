@@ -5,12 +5,19 @@ buildscript {
     repositories {
         google()
         jcenter()
+
+        mavenCentral()
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
 
 
         classpath 'com.google.gms:google-services:3.2.0'
+
+
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
         
 
         // NOTE: Do not place your application dependencies here; they belong

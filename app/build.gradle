@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.yuxuanli.pinmoon"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -42,6 +42,10 @@ dependencies {
     //navigation
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
     compile "com.android.support:design:26.1.0"
+
+    //Circle ImageView
+    compile 'de.hdodenhof:circleimageview:2.2.0'
+
 }
 
 //firebase

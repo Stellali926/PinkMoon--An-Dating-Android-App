@@ -4,9 +4,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <!-- top navigation -->
     <include layout="@layout/layout_top_navigation_view"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Search Matches"
+        android:drawableLeft="@drawable/ic_search"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"
+        android:maxLines="1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Matches"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="20dp"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/matchList"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+    </ListView>
+
 
 </LinearLayout>
