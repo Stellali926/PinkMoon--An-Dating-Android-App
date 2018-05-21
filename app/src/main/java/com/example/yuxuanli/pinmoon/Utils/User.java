@@ -14,12 +14,14 @@ public class User {
     private int profile_photo;
     private List<String> interests;
     private String description;
+    private String sex;
 
 
     public User() {
     }
 
-    public User(String user_id, String phone_number, String email, String username, int profile_photo, List<String> interests, String description) {
+    public User(String sex, String user_id, String phone_number, String email, String username, int profile_photo, List<String> interests, String description) {
+        this.sex = sex;
         this.user_id = user_id;
         this.phone_number = phone_number;
         this.email = email;
@@ -27,6 +29,14 @@ public class User {
         this.profile_photo = profile_photo;
         this.interests = interests;
         this.description = description;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getUser_id() {

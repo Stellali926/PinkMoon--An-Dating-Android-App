@@ -19,7 +19,9 @@
         <activity android:name=".Login.Login" />
         <activity android:name=".Login.Register" />
         <activity android:name=".Matched.Matched_Activity" />
-        <activity android:name=".Profile.Profile_Activity"></activity>
+        <activity android:name=".Profile.Profile_Activity" />
+        <activity android:name=".Main.ProfileCheckinMain" />
+        <activity android:name=".Matched.ProfileCheckinMatched"></activity>
     </application>
 
 </manifest>

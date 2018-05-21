@@ -124,7 +124,7 @@ public class FirebaseMethods {
      */
     public void addNewUser(String sex, String phoneNumber, String email, String username, String description, int profile_photo, List<String> interests) {
 
-        User user = new User(userID, "1", email, username, profile_photo, interests, description );
+        User user = new User(sex, userID, "1", email, username, profile_photo, interests, description );
 
         if (sex.equals("female")) {
             myRef.child(mContext.getString(R.string.dbfemale))

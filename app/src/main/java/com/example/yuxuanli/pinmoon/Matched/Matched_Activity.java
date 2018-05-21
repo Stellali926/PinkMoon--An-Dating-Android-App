@@ -1,11 +1,14 @@
 package com.example.yuxuanli.pinmoon.Matched;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.yuxuanli.pinmoon.R;
@@ -39,6 +42,24 @@ public class Matched_Activity extends AppCompatActivity {
         ProfileAdapter mAdapter = new ProfileAdapter(Matched_Activity.this, R.layout.matched_item, testList);
         ListView listView = (ListView) findViewById(R.id.matchList);
         listView.setAdapter(mAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: The list has been clicked");
+                checkClickedItem(position);
+            }
+        });
+    }
+
+    private void checkClickedItem(int position) {
+        Intent intent = new Intent(this, ProfileCheckinMatched.class);
+        intent.putExtra("name", testList.get(position).getUsername());
+        intent.putExtra("email", testList.get(position).getEmail());
+        intent.putExtra("sex", testList.get(position).getSex());
+        intent.putExtra("number", testList.get(position).getPhone_number());
+        intent.putExtra("photo", testList.get(position).getProfile_photo() + "");
+        startActivity(intent);
     }
 
     private void setupTopNavigationView() {
@@ -52,28 +73,28 @@ public class Matched_Activity extends AppCompatActivity {
     }
 
     private void initAnimal() {
-        User monkey = new User("monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey,new ArrayList<String>(),"");
+        User monkey = new User("male","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey,new ArrayList<String>(),"");
         testList.add(monkey);
 
-        User lion = new User("lion", "4099991919", "sdsd@gmail.com", "Mr.Lion", R.drawable.lion,new ArrayList<String>(),"");
+        User lion = new User("male","lion", "4099991919", "sdsd@gmail.com", "Mr.Lion", R.drawable.lion,new ArrayList<String>(),"");
         testList.add(lion);
 
-        User cat = new User("cat", "4099991919", "sdsd@gmail.com", "Ms.Cat", R.drawable.cat,new ArrayList<String>(),"");
+        User cat = new User("female","cat", "4099991919", "sdsd@gmail.com", "Ms.Cat", R.drawable.cat,new ArrayList<String>(),"");
         testList.add(cat);
 
-        User snake = new User("monkey", "4099991919", "sdsd@gmail.com", "Mr.Snake", R.drawable.snake,new ArrayList<String>(),"");
+        User snake = new User("male","monkey", "4099991919", "sdsd@gmail.com", "Mr.Snake", R.drawable.snake,new ArrayList<String>(),"");
         testList.add(snake);
 
-        User monkey1 = new User("monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey,new ArrayList<String>(),"");
+        User monkey1 = new User("male","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey,new ArrayList<String>(),"");
         testList.add(monkey1);
 
-        User lion2 = new User("lion", "4099991919", "sdsd@gmail.com", "Mr.Lion", R.drawable.lion,new ArrayList<String>(),"");
+        User lion2 = new User("male","lion", "4099991919", "sdsd@gmail.com", "Mr.Lion", R.drawable.lion,new ArrayList<String>(),"");
         testList.add(lion2);
 
-        User cat2 = new User("cat", "4099991919", "sdsd@gmail.com", "Ms.Cat", R.drawable.cat,new ArrayList<String>(),"");
+        User cat2 = new User("female","cat", "4099991919", "sdsd@gmail.com", "Ms.Cat", R.drawable.cat,new ArrayList<String>(),"");
         testList.add(cat2);
 
-        User snake3 = new User("monkey", "4099991919", "sdsd@gmail.com", "Mr.Snake", R.drawable.snake,new ArrayList<String>(),"");
+        User snake3 = new User("male","monkey", "4099991919", "sdsd@gmail.com", "Mr.Snake", R.drawable.snake,new ArrayList<String>(),"");
         testList.add(snake3);
 
 

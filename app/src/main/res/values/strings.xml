@@ -9,4 +9,9 @@
     <!-- Firebase database fields -->
     <string name="dbfemale">female</string>
     <string name="dbmale">male</string>
+    <string name="title_activity_check_profile_before_matched">activity_checkProfileBeforeMatched
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

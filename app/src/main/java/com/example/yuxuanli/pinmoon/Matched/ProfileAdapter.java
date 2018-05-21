@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class ProfileAdapter extends ArrayAdapter<User>{
             viewHolder = new ViewHolder();
             viewHolder.personPic = (ImageView) view.findViewById(R.id.person_image);
             viewHolder.personName = (TextView) view.findViewById(R.id.person_name);
+            viewHolder.imageButton = (ImageButton) view.findViewById(R.id.videoCalBtn);
             view.setTag(viewHolder);
         } else {
             view = convertView;
@@ -49,6 +51,7 @@ public class ProfileAdapter extends ArrayAdapter<User>{
 
         viewHolder.personPic.setImageResource(user.getProfile_photo());
         viewHolder.personName.setText(user.getUsername());
+        viewHolder.imageButton.setFocusable(false);
 
         return view;
     }
@@ -57,5 +60,6 @@ public class ProfileAdapter extends ArrayAdapter<User>{
     class ViewHolder{
         ImageView personPic;
         TextView personName;
+        ImageButton imageButton;
     }
 }

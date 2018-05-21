@@ -11,18 +11,26 @@
     <!-- top navigation -->
     <include layout="@layout/layout_top_navigation_view"/>
 
-    <AutoCompleteTextView
-        android:id="@+id/searchBar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Search Matches"
-        android:drawableLeft="@drawable/ic_search"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20sp"
-        android:maxLines="1"/>
+        android:focusableInTouchMode="true"
+        android:focusable="false">
+
+        <AutoCompleteTextView
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Search Matches"
+            android:drawableLeft="@drawable/ic_search"
+            android:textSize="20sp"
+            android:maxLines="1" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,7 +39,7 @@
         android:text="Matches"
         android:textColor="@color/colorPrimary"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginBottom="20dp"/>
 
     <ListView
@@ -39,7 +47,8 @@
         android:layout_height="match_parent"
         android:id="@+id/matchList"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:clickable="true">
 
     </ListView>
 

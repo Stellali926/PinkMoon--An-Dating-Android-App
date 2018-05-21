@@ -21,7 +21,7 @@
         android:layout_gravity="center_vertical"
         android:id="@+id/person_name"
         android:textSize="20sp"
-        android:textColor="#111111"
+        android:textColor="@color/textColor"
         android:layout_weight="1"/>
 
     <ImageButton
@@ -31,6 +31,7 @@
         android:layout_marginRight="20dp"
         android:layout_gravity="center_vertical"
         android:background="@color/white"
-        android:src="@drawable/ic_video" />
+        android:src="@drawable/ic_video"
+        android:focusable="false"/>
 
 </LinearLayout>

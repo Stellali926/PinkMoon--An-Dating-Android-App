@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.yuxuanli.pinmoon.Login.Login;
@@ -116,6 +118,12 @@ public class MainActivity extends Activity {
 
     static void makeToast(Context ctx, String s){
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void checkInfo(View v) {
+        Intent intent = new Intent(this, ProfileCheckinMain.class);
+        startActivity(intent);
     }
 
     private void setupTopNavigationView() {

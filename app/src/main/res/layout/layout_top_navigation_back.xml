@@ -1,0 +1,30 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/white_grey_border_bottom">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/back"
+            android:src="@drawable/ic_backarrow"
+            android:background="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/toolbartag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="PinkMoon"
+            android:textColor="@color/colorPrimary"
+            android:layout_gravity="center_vertical"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+</merge>
