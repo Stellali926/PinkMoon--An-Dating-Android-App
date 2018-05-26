@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.yuxuanli.pinmoon.Introduction.IntroductionMain;
 import com.example.yuxuanli.pinmoon.Login.Login;
 import com.example.yuxuanli.pinmoon.R;
 import com.example.yuxuanli.pinmoon.Utils.TopNavigationViewHelper;
@@ -145,7 +146,7 @@ public class MainActivity extends Activity {
         Log.d(TAG, "checkCurrentUser: checking if user is logged in");
 
         if (user == null) {
-            Intent intent = new Intent(mContext, Login.class);
+            Intent intent = new Intent(mContext, IntroductionMain.class);
             startActivity(intent);
         }
     }

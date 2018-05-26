@@ -4,6 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/numberOfPagesLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="24dp"
+        android:text="1/5"
+        android:textColor="#747474"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,78 +26,64 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REGISTER A NEW ACCOTUN"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="40dp"/>
+            android:layout_centerHorizontal="true"
+            android:text="Hey, lets get started!!!"
+            android:layout_marginTop="40dp"
+            android:textColor="#747474"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="Email"
+                android:hint="entry your Email"
                 android:id="@+id/input_email"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="Full Name"
+                android:hint="enter your username "
                 android:id="@+id/input_username"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Password"
+                android:hint="enter your Password"
                 android:id="@+id/input_password"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
             android:layout_width="match_parent"
+            style="@android:style/Widget.Material.Button.Borderless.Colored"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
             android:layout_marginTop="25dp"
-            android:text="Register"
+            android:text="Continue"
+            android:textColor="@color/white"
             android:id="@+id/btn_register"
             android:padding="12dp"
-            android:background="@drawable/white_rounded_button"/>
+            android:background="@color/colorPrimary"/>
 
     </LinearLayout>
-
-    <ProgressBar
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/progressBar"
-        android:layout_centerInParent="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Please wait..."
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_alignBottom="@+id/progressBar"
-        android:layout_alignRight="@+id/progressBar"
-        android:layout_alignLeft="@+id/progressBar"
-        android:id="@+id/loadingPleaseWait"/>
 
 </RelativeLayout>

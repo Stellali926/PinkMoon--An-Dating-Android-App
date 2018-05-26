@@ -1,34 +1,43 @@
 package com.example.yuxuanli.pinmoon.Utils;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by yuxuanli on 4/10/18.
  */
 
-public class User {
+public class User implements Serializable {
     private String user_id;
     private String phone_number;
     private String email;
     private String username;
     private int profile_photo;
-    private List<String> interests;
+    private boolean sports;
+    private boolean travel;
+    private boolean music;
+    private boolean fishing;
     private String description;
     private String sex;
+    private String preferSex;
 
 
     public User() {
     }
 
-    public User(String sex, String user_id, String phone_number, String email, String username, int profile_photo, List<String> interests, String description) {
+    public User(String sex, String preferSex, String user_id, String phone_number, String email, String username, int profile_photo, boolean sport, boolean travel, boolean music,boolean fish, String description) {
         this.sex = sex;
         this.user_id = user_id;
         this.phone_number = phone_number;
         this.email = email;
         this.username = username;
         this.profile_photo = profile_photo;
-        this.interests = interests;
+        this.sports = sport;
+        this.travel = travel;
+        this.music = music;
+        this.fishing = fish;
         this.description = description;
+        this.preferSex = preferSex;
     }
 
     public String getSex() {
@@ -79,14 +88,6 @@ public class User {
         this.profile_photo = profile_photo;
     }
 
-    public List<String> getInterests() {
-        return interests;
-    }
-
-    public void setInterests(List<String> interests) {
-        this.interests = interests;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -95,16 +96,61 @@ public class User {
         this.description = description;
     }
 
+    public boolean isSports() {
+        return sports;
+    }
+
+    public void setSports(boolean sports) {
+        this.sports = sports;
+    }
+
+    public boolean isTravel() {
+        return travel;
+    }
+
+    public void setTravel(boolean travel) {
+        this.travel = travel;
+    }
+
+    public boolean isMusic() {
+        return music;
+    }
+
+    public void setMusic(boolean music) {
+        this.music = music;
+    }
+
+    public boolean isFishing() {
+        return fishing;
+    }
+
+    public void setFishing(boolean fishing) {
+        this.fishing = fishing;
+    }
+
+    public String getPreferSex() {
+        return preferSex;
+    }
+
+    public void setPreferSex(String preferSex) {
+        this.preferSex = preferSex;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "user_id='" + user_id + '\'' +
-                ", phone_number=" + phone_number +
+                ", phone_number='" + phone_number + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", profile_photo='" + profile_photo + '\'' +
-                ", interests=" + interests +
+                ", profile_photo=" + profile_photo +
+                ", sports=" + sports +
+                ", travel=" + travel +
+                ", music=" + music +
+                ", fishing=" + fishing +
                 ", description='" + description + '\'' +
+                ", sex='" + sex + '\'' +
+                ", preferSex='" + preferSex + '\'' +
                 '}';
     }
 }

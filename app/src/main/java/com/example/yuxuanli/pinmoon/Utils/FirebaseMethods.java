@@ -67,7 +67,7 @@ public class FirebaseMethods {
     }
 
     /**
-     * Register a new email and password to Firebase Authentication
+     * RegisterBasicInfo a new email and password to Firebase Authentication
      * @param email
      * @param password
      * @param username
@@ -113,20 +113,10 @@ public class FirebaseMethods {
         }
     }
 
-    /**
-     *
-     * @param phoneNumber
-     * @param email
-     * @param username
-     * @param description
-     * @param profile_photo
-     * @param interests
-     */
-    public void addNewUser(String sex, String phoneNumber, String email, String username, String description, int profile_photo, List<String> interests) {
 
-        User user = new User(sex, userID, "1", email, username, profile_photo, interests, description );
+    public void addNewUser(User user) {
 
-        if (sex.equals("female")) {
+        if (user.getSex().equals("female")) {
             myRef.child(mContext.getString(R.string.dbfemale))
                     .child(userID)
                     .setValue(user);

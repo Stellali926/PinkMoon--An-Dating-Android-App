@@ -17,12 +17,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login.Login" />
-        <activity android:name=".Login.Register" />
+        <activity android:name=".Login.RegisterBasicInfo" />
         <activity android:name=".Matched.Matched_Activity" />
         <activity android:name=".Profile.Profile_Activity" />
         <activity android:name=".Main.ProfileCheckinMain" />
         <activity android:name=".Matched.ProfileCheckinMatched" />
-        <activity android:name=".Profile.EditProfileActivity"></activity>
+        <activity android:name=".Profile.EditProfileActivity" />
+        <activity android:name=".Introduction.IntroductionMain" />
+        <activity android:name=".Login.RegisterGender" />
+        <activity android:name=".Login.RegisterGenderPrefection" />
+        <activity android:name=".Login.RegisterAge" />
+        <activity android:name=".Login.RegisterHobby"></activity>
     </application>
 
 </manifest>

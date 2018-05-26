@@ -30,23 +30,15 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private Context mContext;
-    private ProgressBar mProgressBar;
     private EditText mEmail, mPassword;
-    private TextView mPleaseWait;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mPleaseWait = (TextView) findViewById(R.id.pleaseWait);
         mEmail = (EditText) findViewById(R.id.input_email);
         mPassword = (EditText) findViewById(R.id.input_password);
         mContext = Login.this;
-
-        Log.d(TAG, "onCreate: started");
-        mPleaseWait.setVisibility(View.GONE);
-        mProgressBar.setVisibility(View.GONE);
 
         setupFirebaseAuth();
         init();
@@ -79,8 +71,6 @@ public class Login extends AppCompatActivity {
                 if (isStringNull(email) || isStringNull(password)) {
                     Toast.makeText(mContext, "You must fill out all the fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    mProgressBar.setVisibility(View.VISIBLE);
-                    mPleaseWait.setVisibility(View.VISIBLE);
 
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
@@ -98,8 +88,6 @@ public class Login extends AppCompatActivity {
                                                 startActivity(intent);
                                             } else {
                                                 Toast.makeText(mContext, "Email is not verified \n check your email inbox.", Toast.LENGTH_SHORT).show();
-                                                mProgressBar.setVisibility(View.GONE);
-                                                mPleaseWait.setVisibility(View.GONE);
                                                 mAuth.signOut();
                                             }
 
@@ -112,9 +100,6 @@ public class Login extends AppCompatActivity {
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                                         Toast.makeText(Login.this, R.string.auth_failed,
                                                 Toast.LENGTH_SHORT).show();
-
-                                        mProgressBar.setVisibility(View.GONE);
-                                        mPleaseWait.setVisibility(View.GONE);
                                     }
 
                                     // ...
@@ -129,7 +114,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: navigating to register screen");
-                Intent intent = new Intent (Login.this, Register.class);
+                Intent intent = new Intent (Login.this, RegisterBasicInfo.class);
                 startActivity(intent);
             }
         });

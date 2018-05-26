@@ -73,29 +73,21 @@ public class Matched_Activity extends AppCompatActivity {
     }
 
     private void initAnimal() {
-        User monkey = new User("male","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey,new ArrayList<String>(),"");
+        User monkey = new User("male","female","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey, false, false, false, false,"");
         testList.add(monkey);
 
-        User lion = new User("male","lion", "4099991919", "sdsd@gmail.com", "Mr.Lion", R.drawable.lion,new ArrayList<String>(),"");
+        User lion = new User("male","","lion", "4099991919", "sdsd@gmail.com", "Mr.Lion", R.drawable.lion,false, false, false, false,"");
         testList.add(lion);
 
-        User cat = new User("female","cat", "4099991919", "sdsd@gmail.com", "Ms.Cat", R.drawable.cat,new ArrayList<String>(),"");
+        User cat = new User("female","","cat", "4099991919", "sdsd@gmail.com", "Ms.Cat", R.drawable.cat,false, false, false, false,"");
         testList.add(cat);
 
-        User snake = new User("male","monkey", "4099991919", "sdsd@gmail.com", "Mr.Snake", R.drawable.snake,new ArrayList<String>(),"");
+        User snake = new User("male","","monkey", "4099991919", "sdsd@gmail.com", "Mr.Snake", R.drawable.snake,false, false, false, false,"");
         testList.add(snake);
 
-        User monkey1 = new User("male","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey,new ArrayList<String>(),"");
+        User monkey1 = new User("male","","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey,false, false, false, false,"");
         testList.add(monkey1);
 
-        User lion2 = new User("male","lion", "4099991919", "sdsd@gmail.com", "Mr.Lion", R.drawable.lion,new ArrayList<String>(),"");
-        testList.add(lion2);
-
-        User cat2 = new User("female","cat", "4099991919", "sdsd@gmail.com", "Ms.Cat", R.drawable.cat,new ArrayList<String>(),"");
-        testList.add(cat2);
-
-        User snake3 = new User("male","monkey", "4099991919", "sdsd@gmail.com", "Mr.Snake", R.drawable.snake,new ArrayList<String>(),"");
-        testList.add(snake3);
 
 
     }
