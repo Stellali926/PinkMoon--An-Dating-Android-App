@@ -39,6 +39,9 @@ public class RegisterBasicInfo extends AppCompatActivity{
 
     private String append = "";
 
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +62,8 @@ public class RegisterBasicInfo extends AppCompatActivity{
                 username = mUsername.getText().toString();
                 password = mPassword.getText().toString();
 
-                if (checkInputs(email, username, password)) {
+                if (checkInputs(email, username, password))
+                {
                     Intent intent = new Intent(RegisterBasicInfo.this, RegisterGender.class);
                     User user = new User("","","","",email, username, 0, false, false, false, false, "");
                     intent.putExtra("password", password);
@@ -72,10 +76,21 @@ public class RegisterBasicInfo extends AppCompatActivity{
 
     private boolean checkInputs(String email, String username, String password) {
         Log.d(TAG, "checkInputs: checking inputs for null values.");
-        if (email.equals("") || username.equals("") || password.equals("")) {
+        if (email.equals("") || username.equals("") || password.equals(""))
+        {
             Toast.makeText(mContext, "All fields must be filed out.", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+        // Below code checks if the email id is valid or not.
+        if (!email.matches(emailPattern))
+        {
+            Toast.makeText(getApplicationContext(),"Invalid email address, enter valid email id and click on Continue",Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
+
+
         return true;
     }
 
