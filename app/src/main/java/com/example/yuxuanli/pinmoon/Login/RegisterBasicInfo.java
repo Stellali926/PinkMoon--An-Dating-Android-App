@@ -39,7 +39,7 @@ public class RegisterBasicInfo extends AppCompatActivity{
 
     private String append = "";
 
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
 
     @Override
