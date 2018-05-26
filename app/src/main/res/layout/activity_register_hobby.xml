@@ -37,7 +37,6 @@
 
         <Button
             android:id="@+id/sportsSelectionButton"
-            style="@android:style/Widget.Material.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -52,7 +51,6 @@
 
         <Button
             android:id="@+id/travelSelectionButton"
-            style="@android:style/Widget.Material.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -75,7 +73,6 @@
 
         <Button
             android:id="@+id/musicSelectionButton"
-            style="@android:style/Widget.Material.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -90,7 +87,6 @@
 
         <Button
             android:id="@+id/fishingSelectionButton"
-            style="@android:style/Widget.Material.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -108,7 +104,6 @@
 
     <Button
         android:id="@+id/hobbiesContinueButton"
-        style="@android:style/Widget.Material.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"

@@ -223,6 +223,9 @@ public class RegisterHobby extends AppCompatActivity {
                             Toast.makeText(mContext, "Signup successful. Sending verification email.", Toast.LENGTH_SHORT).show();
 
                             mAuth.signOut();
+
+                            Intent intent = new Intent(RegisterHobby.this, Login.class);
+                            startActivity(intent);
                         }
 
                         @Override
@@ -230,9 +233,6 @@ public class RegisterHobby extends AppCompatActivity {
 
                         }
                     });
-
-                    Intent intent = new Intent(RegisterHobby.this, Login.class);
-                    startActivity(intent);
 
                 } else {
                     //user is signed out

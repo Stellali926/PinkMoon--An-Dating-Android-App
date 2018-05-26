@@ -46,7 +46,6 @@
 
     <Button
         android:id="@+id/ageContinueButton"
-        style="@android:style/Widget.Material.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ageSelectionPicker"

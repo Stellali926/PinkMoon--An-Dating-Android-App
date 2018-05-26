@@ -37,7 +37,6 @@
 
         <Button
             android:id="@+id/maleSelectionButton"
-            style="@android:style/Widget.Material.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -52,7 +51,6 @@
 
         <Button
             android:id="@+id/femaleSelectionButton"
-            style="@android:style/Widget.Material.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
@@ -70,7 +68,6 @@
 
     <Button
         android:id="@+id/preferenceContinueButton"
-        style="@android:style/Widget.Material.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
