@@ -21,7 +21,8 @@
         <activity android:name=".Matched.Matched_Activity" />
         <activity android:name=".Profile.Profile_Activity" />
         <activity android:name=".Main.ProfileCheckinMain" />
-        <activity android:name=".Matched.ProfileCheckinMatched"></activity>
+        <activity android:name=".Matched.ProfileCheckinMatched" />
+        <activity android:name=".Profile.EditProfileActivity"></activity>
     </application>
 
 </manifest>

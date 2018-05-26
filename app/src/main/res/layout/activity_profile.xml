@@ -10,10 +10,13 @@
     <!-- top navigation -->
     <include layout="@layout/layout_top_navigation_view"/>
 
+
     <Button
+        android:id="@+id/edit_profile"
+        android:text="Edit Profile"
+        android:textAllCaps="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LOG OUT"
-        android:onClick="Logout"/>
+        android:onClick="Edit_Profile"/>
 
 </LinearLayout>
