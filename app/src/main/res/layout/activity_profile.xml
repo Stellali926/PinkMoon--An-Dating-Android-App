@@ -10,13 +10,73 @@
     <!-- top navigation -->
     <include layout="@layout/layout_top_navigation_view"/>
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/edit_profile"
-        android:text="Edit Profile"
-        android:textAllCaps="false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="Edit_Profile"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circle_profile_image"
+            android:layout_width="151dp"
+            android:layout_height="161dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="59dp"
+            android:src="@drawable/profile_image_example"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/circle_profile_image"
+            android:layout_centerHorizontal="true"
+            android:text="Rose J"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/settings"
+            android:layout_marginEnd="90dp"
+            android:background="@drawable/circle_background"
+            android:gravity="center"
+            android:onClick="Edit_Profile"
+            android:padding="15dp"
+            android:src="@drawable/ic_edit"
+            tools:ignore="NotSibling" />
+
+        <ImageButton
+            android:id="@+id/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="140dp"
+            android:layout_marginStart="90dp"
+            android:background="@drawable/circle_background"
+            android:gravity="center"
+            android:padding="15dp"
+
+            android:src="@drawable/ic_settings" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="41dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="151dp"
+            android:background="#e5e5e5" />
+
+
+    </RelativeLayout>
+
 
 </LinearLayout>

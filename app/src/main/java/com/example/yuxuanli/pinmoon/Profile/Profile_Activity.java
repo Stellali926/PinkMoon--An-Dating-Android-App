@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.yuxuanli.pinmoon.Login.Login;
 import com.example.yuxuanli.pinmoon.Matched.Matched_Activity;
@@ -36,7 +37,7 @@ public class Profile_Activity extends AppCompatActivity {
 
         setupTopNavigationView();
 
-        Button edit_btn = (Button) findViewById(R.id.edit_profile);
+        ImageButton edit_btn = (ImageButton) findViewById(R.id.edit_profile);
         edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
