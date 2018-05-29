@@ -36,7 +36,7 @@ public class PhotoAdapter extends ArrayAdapter<Cards> {
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
 
         name.setText(card_item.getName());
-        image.setImageResource(R.mipmap.ic_launcher); // temp image
+        image.setImageResource(R.drawable.profile_image_example); // temp image
 
         return convertView;
     }

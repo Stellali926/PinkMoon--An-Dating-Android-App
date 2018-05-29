@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
@@ -35,6 +36,7 @@ public class MainActivity extends Activity {
 
     private Context mContext = MainActivity.this;
     private String userSex, lookforSex;
+    String currentUID;
 
     private Cards cards_data[];
     private PhotoAdapter arrayAdapter;
@@ -45,11 +47,14 @@ public class MainActivity extends Activity {
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference usersDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        usersDb = FirebaseDatabase.getInstance().getReference();
 
         setupFirebaseAuth();
         setupTopNavigationView();
@@ -57,7 +62,6 @@ public class MainActivity extends Activity {
         checkUserSex();
 
         rowItems  = new ArrayList<Cards>();
-
         arrayAdapter = new PhotoAdapter(this, R.layout.item, rowItems);
 
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
@@ -75,14 +79,21 @@ public class MainActivity extends Activity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                //Do something on the left!
-                //You also have access to the original object.
-                //If you want to use it just cast it (String) dataObject
+                Cards obj = (Cards) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(lookforSex).child(userId).child("connections").child("dislikeme").child(currentUID).setValue(true);
                 makeToast(MainActivity.this, "Left!");
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                Cards obj = (Cards) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(lookforSex).child(userId).child("connections").child("likeme").child(currentUID).setValue(true);
+
+                //check matches
+                isConnectionMatch(userId);
+
                 makeToast(MainActivity.this, "Right!");
             }
 
@@ -110,6 +121,27 @@ public class MainActivity extends Activity {
 
     }
 
+    private void isConnectionMatch(String userId) {
+        DatabaseReference currentUserConnectionsDb = usersDb.child(userSex).child(currentUID).child("connections").child("likeme").child(userId);
+        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    //prompt user that match
+                    //later change to notification
+                    Toast.makeText(MainActivity.this, "New Connection", Toast.LENGTH_LONG).show();
+
+                    usersDb.child(lookforSex).child(dataSnapshot.getKey()).child("connections").child("match_result").child(currentUID).setValue(true);
+                    usersDb.child(userSex).child(currentUID).child("connections").child("match_result").child(dataSnapshot.getKey()).setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
     static void makeToast(Context ctx, String s){
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
@@ -118,13 +150,14 @@ public class MainActivity extends Activity {
 
     public void checkUserSex() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        this.currentUID = user.getUid();
 
         DatabaseReference maleDb = FirebaseDatabase.getInstance().getReference().child("male");
         maleDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                if (dataSnapshot.getKey().equals(user.getUid())) {
+                if (dataSnapshot.getKey().equals(currentUID)) {
                     Log.d(TAG, "onChildAdded: the sex is " + userSex);
                     userSex = "male";
                     lookforSex = "female";
@@ -186,7 +219,7 @@ public class MainActivity extends Activity {
         potentialMatch.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("dislikeme").hasChild(currentUID) && !dataSnapshot.child("connections").child("likeme").hasChild(currentUID)) {
                     Cards item = new Cards(dataSnapshot.getKey(), dataSnapshot.child("username").getValue().toString());
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
