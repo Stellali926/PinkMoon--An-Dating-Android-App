@@ -24,6 +24,7 @@ public class RegisterAge extends AppCompatActivity {
     private DatePicker ageSelectionPicker;
     private Button ageContinueButton;
 
+    // age limit attribute
     private int ageLimit = 13;
     SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy");
 
