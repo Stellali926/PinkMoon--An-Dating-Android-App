@@ -11,7 +11,10 @@ import android.widget.Toast;
 import com.example.yuxuanli.pinmoon.R;
 import com.example.yuxuanli.pinmoon.Utils.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class RegisterAge extends AppCompatActivity {
 
@@ -22,6 +25,8 @@ public class RegisterAge extends AppCompatActivity {
     private Button ageContinueButton;
 
     private int ageLimit = 13;
+    SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,17 @@ public class RegisterAge extends AppCompatActivity {
         // if user is above 13 years old then only he/she will be allowed to register to the system.
         if (age > ageLimit)
         {
+            // code for converting date to string
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, ageSelectionPicker.getYear());
+            cal.set(Calendar.MONTH, ageSelectionPicker.getMonth());
+            cal.set(Calendar.DAY_OF_MONTH, ageSelectionPicker.getDayOfMonth());
+            Date dateOfBirth = cal.getTime();
+            String strDateOfBirth = dateFormatter.format(dateOfBirth);
+
+            // code to set the dateOfBirthAttribute.
+            user.setDateOfBirth(strDateOfBirth);
+
             Intent intent = new Intent(this, RegisterHobby.class);
             intent.putExtra("password", password);
             intent.putExtra("classUser", user);

@@ -65,7 +65,7 @@ public class RegisterBasicInfo extends AppCompatActivity{
                 if (checkInputs(email, username, password))
                 {
                     Intent intent = new Intent(RegisterBasicInfo.this, RegisterGender.class);
-                    User user = new User("","","","",email, username, 0, false, false, false, false, "");
+                    User user = new User("","","","",email, username, 0, false, false, false, false, "","");
                     intent.putExtra("password", password);
                     intent.putExtra("classUser", user);
                     startActivity(intent);
