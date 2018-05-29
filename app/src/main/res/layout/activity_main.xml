@@ -31,32 +31,6 @@
             tools:context=".MyActivity"
             android:layout_weight="1"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Victoria, 19"
-                android:layout_weight="1"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/textColor"/>
-
-            <ImageButton
-                android:id="@+id/checkInfoBeforeMatched"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_info"
-                android:background="@color/white"
-                android:layout_marginRight="20dp"
-                android:onClick="checkInfo"/>
-
-        </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout

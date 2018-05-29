@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.yuxuanli.pinmoon.Introduction.IntroductionMain;
@@ -26,6 +26,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -35,15 +36,15 @@ public class MainActivity extends Activity {
     private Context mContext = MainActivity.this;
     private String userSex, lookforSex;
 
+    private Cards cards_data[];
+    private PhotoAdapter arrayAdapter;
+
+    ListView listView;
+    List<Cards> rowItems;
+
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
-
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
-    private int i;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +56,9 @@ public class MainActivity extends Activity {
 
         checkUserSex();
 
-        al = new ArrayList<>();
-        al.add("php");
-        al.add("c");
-        al.add("python");
-        al.add("java");
-        al.add("html");
-        al.add("c++");
-        al.add("css");
-        al.add("javascript");
+        rowItems  = new ArrayList<Cards>();
 
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al);
+        arrayAdapter = new PhotoAdapter(this, R.layout.item, rowItems);
 
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
@@ -76,7 +69,7 @@ public class MainActivity extends Activity {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                al.remove(0);
+                rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
@@ -132,6 +125,7 @@ public class MainActivity extends Activity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 if (dataSnapshot.getKey().equals(user.getUid())) {
+                    Log.d(TAG, "onChildAdded: the sex is " + userSex);
                     userSex = "male";
                     lookforSex = "female";
                     getPotentialMatch();
@@ -156,11 +150,12 @@ public class MainActivity extends Activity {
         });
 
         DatabaseReference femaleDb = FirebaseDatabase.getInstance().getReference().child("female");
-        maleDb.addChildEventListener(new ChildEventListener() {
+        femaleDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 if (dataSnapshot.getKey().equals(user.getUid())) {
+                    Log.d(TAG, "onChildAdded: the sex is " + userSex);
                     userSex = "female";
                     lookforSex = "male";
                     getPotentialMatch();
@@ -192,7 +187,8 @@ public class MainActivity extends Activity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists()) {
-                    al.add(dataSnapshot.child("username").getValue().toString());
+                    Cards item = new Cards(dataSnapshot.getKey(), dataSnapshot.child("username").getValue().toString());
+                    rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
             }
