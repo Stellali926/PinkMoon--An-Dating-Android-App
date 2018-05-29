@@ -15,12 +15,24 @@
       },
       "oauth_client": [
         {
+          "client_id": "389570364574-2q6c4126cgd70d9u9ff278q1m8mh1v1i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yuxuanli.pinmoon",
+            "certificate_hash": "6bf55746c6421ade108b09a775b6f2d5179246bf"
+          }
+        },
+        {
           "client_id": "389570364574-qcpf7cujmhitg0g32g5dun0dbi611983.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.yuxuanli.pinmoon",
             "certificate_hash": "b420bd195118f4422a43abfd41fbc22ee07f9b3e"
           }
+        },
+        {
+          "client_id": "389570364574-tp6on3bi89s22bphej5jrebb936teoac.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "389570364574-tp6on3bi89s22bphej5jrebb936teoac.apps.googleusercontent.com",

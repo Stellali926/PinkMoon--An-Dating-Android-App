@@ -20,12 +20,13 @@ public class User implements Serializable {
     private String description;
     private String sex;
     private String preferSex;
+    private String dateOfBirth;
 
 
     public User() {
     }
 
-    public User(String sex, String preferSex, String user_id, String phone_number, String email, String username, int profile_photo, boolean sport, boolean travel, boolean music,boolean fish, String description) {
+    public User(String sex, String preferSex, String user_id, String phone_number, String email, String username, int profile_photo, boolean sport, boolean travel, boolean music,boolean fish, String description, String dateOfBirth) {
         this.sex = sex;
         this.user_id = user_id;
         this.phone_number = phone_number;
@@ -38,6 +39,7 @@ public class User implements Serializable {
         this.fishing = fish;
         this.description = description;
         this.preferSex = preferSex;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getSex() {
@@ -136,6 +138,12 @@ public class User implements Serializable {
         this.preferSex = preferSex;
     }
 
+    // Added new attribute called date of birth.
+    public String getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -151,6 +159,7 @@ public class User implements Serializable {
                 ", description='" + description + '\'' +
                 ", sex='" + sex + '\'' +
                 ", preferSex='" + preferSex + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
                 '}';
     }
 }

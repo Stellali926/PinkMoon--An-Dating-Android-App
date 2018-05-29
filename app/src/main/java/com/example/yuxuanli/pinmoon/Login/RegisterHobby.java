@@ -122,11 +122,13 @@ public class RegisterHobby extends AppCompatActivity {
         {
             sportsSelectionButton.setAlpha(.5f);
             sportsSelectionButton.setBackgroundColor(Color.GRAY);
+            userInfo.setSports(false);
         }
         else
         {
             sportsSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
             sportsSelectionButton.setAlpha(1.0f);
+            userInfo.setSports(true);
         }
     }
 
@@ -136,11 +138,14 @@ public class RegisterHobby extends AppCompatActivity {
         {
             travelSelectionButton.setAlpha(.5f);
             travelSelectionButton.setBackgroundColor(Color.GRAY);
+            userInfo.setTravel(false);
         }
         else
         {
             travelSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
             travelSelectionButton.setAlpha(1.0f);
+            userInfo.setTravel(true);
+
         }
 
     }
@@ -152,11 +157,14 @@ public class RegisterHobby extends AppCompatActivity {
         {
             musicSelectionButton.setAlpha(.5f);
             musicSelectionButton.setBackgroundColor(Color.GRAY);
+            userInfo.setMusic(false);
         }
         else
         {
             musicSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
             musicSelectionButton.setAlpha(1.0f);
+            userInfo.setMusic(true);
+
         }
 
     }
@@ -168,11 +176,14 @@ public class RegisterHobby extends AppCompatActivity {
         {
             fishingSelectionButton.setAlpha(.5f);
             fishingSelectionButton.setBackgroundColor(Color.GRAY);
+            userInfo.setFishing(false);
         }
         else
         {
             fishingSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
             fishingSelectionButton.setAlpha(1.0f);
+            userInfo.setFishing(true);
+
         }
 
     }
@@ -181,6 +192,7 @@ public class RegisterHobby extends AppCompatActivity {
         hobbiesContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 firebaseMethods.registerNewEmail(userInfo.getEmail(), password, userInfo.getUsername());
             }
         });

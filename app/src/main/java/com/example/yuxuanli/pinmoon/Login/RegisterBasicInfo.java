@@ -18,9 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 public class RegisterBasicInfo extends AppCompatActivity{
     private static final String TAG = "RegisterActivity";
 
@@ -65,7 +62,7 @@ public class RegisterBasicInfo extends AppCompatActivity{
                 if (checkInputs(email, username, password))
                 {
                     Intent intent = new Intent(RegisterBasicInfo.this, RegisterGender.class);
-                    User user = new User("","","","",email, username, 0, false, false, false, false, "");
+                    User user = new User("","","","",email, username, 0, false, false, false, false, "","");
                     intent.putExtra("password", password);
                     intent.putExtra("classUser", user);
                     startActivity(intent);

@@ -73,19 +73,19 @@ public class Matched_Activity extends AppCompatActivity {
     }
 
     private void initAnimal() {
-        User monkey = new User("male","female","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey, false, false, false, false,"");
+        User monkey = new User("male","female","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey, false, false, false, false,"","");
         testList.add(monkey);
 
-        User lion = new User("male","","lion", "4099991919", "sdsd@gmail.com", "Mr.Lion", R.drawable.lion,false, false, false, false,"");
+        User lion = new User("male","","lion", "4099991919", "sdsd@gmail.com", "Mr.Lion", R.drawable.lion,false, false, false, false,"","");
         testList.add(lion);
 
-        User cat = new User("female","","cat", "4099991919", "sdsd@gmail.com", "Ms.Cat", R.drawable.cat,false, false, false, false,"");
+        User cat = new User("female","","cat", "4099991919", "sdsd@gmail.com", "Ms.Cat", R.drawable.cat,false, false, false, false,"","");
         testList.add(cat);
 
-        User snake = new User("male","","monkey", "4099991919", "sdsd@gmail.com", "Mr.Snake", R.drawable.snake,false, false, false, false,"");
+        User snake = new User("male","","monkey", "4099991919", "sdsd@gmail.com", "Mr.Snake", R.drawable.snake,false, false, false, false,"","");
         testList.add(snake);
 
-        User monkey1 = new User("male","","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey,false, false, false, false,"");
+        User monkey1 = new User("male","","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey,false, false, false, false,"","");
         testList.add(monkey1);
 
 
