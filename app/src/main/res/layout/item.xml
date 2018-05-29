@@ -39,22 +39,36 @@
                     android:id="@+id/image"
                     android:scaleType="centerCrop"/>
 
-                <View
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/item_swipe_left_indicator"
                     android:alpha="0"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:text="LIKE"
                     android:layout_margin="10dp"
-                    android:background="#A5F" />
+                    android:textColor="@color/likegreen"
+                    android:textSize="35sp"
+                    android:background="@drawable/like_border"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"/>
 
-                <View
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/item_swipe_right_indicator"
                     android:alpha="0"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
                     android:layout_margin="10dp"
                     android:layout_gravity="right"
-                    android:background="#5AF" />
+                    android:text="NOPE"
+                    android:textSize="35sp"
+                    android:textColor="@color/dislikered"
+                    android:background="@drawable/dislike_border"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"/>
 
             </FrameLayout>
 
