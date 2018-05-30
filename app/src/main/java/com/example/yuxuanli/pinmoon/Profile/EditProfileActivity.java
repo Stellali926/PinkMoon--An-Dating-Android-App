@@ -1,15 +1,20 @@
 package com.example.yuxuanli.pinmoon.Profile;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yuxuanli.pinmoon.Login.Login;
+import com.example.yuxuanli.pinmoon.Manifest;
 import com.example.yuxuanli.pinmoon.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,10 +26,17 @@ public class EditProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    //upload image by camera
+    public static final int REQUEST_IMAGE_CAPTURE= 100;
+    ImageView edProfileImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        //edit profile image
+        edProfileImage = (ImageView) findViewById(R.id.profileImage);
 
         TextView toolbar = (TextView) findViewById(R.id.toolbartag);
         toolbar.setText("Profile");
@@ -38,8 +50,36 @@ public class EditProfileActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-    }
 
+        //upload image taken from camera
+        //if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE != )
+
+
+        //set onclickListener for change profile image
+        edProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCameraIntent();
+            }
+        });
+    }
+    private void openCameraIntent() {
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (pictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(pictureIntent,REQUEST_IMAGE_CAPTURE);
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE &&
+                resultCode == RESULT_OK) {
+            if (data != null && data.getExtras() != null) {
+                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                edProfileImage.setImageBitmap(imageBitmap);
+            }
+        }
+    }
     public void Logout(View view) {
         mAuth.signOut();
         finish();
