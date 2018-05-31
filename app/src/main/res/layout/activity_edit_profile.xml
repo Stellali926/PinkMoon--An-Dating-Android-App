@@ -115,7 +115,14 @@
             android:paddingLeft="10dp"
             android:background="@android:color/transparent"/>
 
-
+        <Button
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_rounded_button"
+            android:text="Save and back"
+            android:onClick="saveAndBack"
+            android:layout_gravity="center" />
 
         <Button
             android:gravity="center"

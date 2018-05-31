@@ -150,68 +150,69 @@ public class MainActivity extends Activity {
 
     public void checkUserSex() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        this.currentUID = user.getUid();
+        if (user != null) {
+            this.currentUID = user.getUid();
 
-        DatabaseReference maleDb = FirebaseDatabase.getInstance().getReference().child("male");
-        maleDb.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            DatabaseReference maleDb = FirebaseDatabase.getInstance().getReference().child("male");
+            maleDb.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                if (dataSnapshot.getKey().equals(currentUID)) {
-                    Log.d(TAG, "onChildAdded: the sex is " + userSex);
-                    userSex = "male";
-                    lookforSex = "female";
-                    getPotentialMatch();
+                    if (dataSnapshot.getKey().equals(currentUID)) {
+                        Log.d(TAG, "onChildAdded: the sex is " + userSex);
+                        userSex = "male";
+                        lookforSex = "female";
+                        getPotentialMatch();
+                    }
                 }
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        DatabaseReference femaleDb = FirebaseDatabase.getInstance().getReference().child("female");
-        femaleDb.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                if (dataSnapshot.getKey().equals(user.getUid())) {
-                    Log.d(TAG, "onChildAdded: the sex is " + userSex);
-                    userSex = "female";
-                    lookforSex = "male";
-                    getPotentialMatch();
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 }
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+            DatabaseReference femaleDb = FirebaseDatabase.getInstance().getReference().child("female");
+            femaleDb.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+                    if (dataSnapshot.getKey().equals(user.getUid())) {
+                        Log.d(TAG, "onChildAdded: the sex is " + userSex);
+                        userSex = "female";
+                        lookforSex = "male";
+                        getPotentialMatch();
+                    }
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
     }
 
     public void getPotentialMatch() {
@@ -279,6 +280,7 @@ public class MainActivity extends Activity {
      * Setup the firebase auth object
      */
     private void setupFirebaseAuth(){
+        Log.d(TAG, "setupFirebaseAuth: check user");
         mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener(){
