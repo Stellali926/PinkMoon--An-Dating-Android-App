@@ -36,7 +36,7 @@ public class PhotoAdapter extends ArrayAdapter<Cards> {
         TextView name = (TextView) convertView.findViewById(R.id.name);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
 
-        name.setText(card_item.getName() +  " " + card_item.getAge());
+        name.setText(card_item.getName() +  ", " + card_item.getAge());
 
         switch (card_item.getProfileImageUrl()) {
             case "defaultFemale":
