@@ -3,21 +3,16 @@ package com.example.yuxuanli.pinmoon.Profile;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.example.yuxuanli.pinmoon.Login.Login;
-import com.example.yuxuanli.pinmoon.Matched.Matched_Activity;
 import com.example.yuxuanli.pinmoon.R;
 import com.example.yuxuanli.pinmoon.Utils.TopNavigationViewHelper;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class Profile_Activity extends AppCompatActivity {
@@ -42,6 +37,15 @@ public class Profile_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Profile_Activity.this, EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton settings = (ImageButton) findViewById(R.id.settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile_Activity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         });

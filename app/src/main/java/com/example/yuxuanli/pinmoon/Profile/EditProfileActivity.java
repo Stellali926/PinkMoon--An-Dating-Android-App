@@ -68,6 +68,9 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
         mProfileImage = (ImageView)findViewById(R.id.profileImage);
+//        int width = mProfileImage.getWidth();
+//        Log.d(TAG, "onCreate: the width is" + width);
+
         userId = mAuth.getCurrentUser().getUid();
 
         checkUserSex();
@@ -96,10 +99,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
@@ -186,11 +187,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void saveAndBack(View view) {
         saveUserPhoto();
-        finish();
-    }
-
-    public void Logout(View view) {
-        mAuth.signOut();
         finish();
     }
 

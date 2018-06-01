@@ -42,7 +42,6 @@ dependencies {
     //firebase storage
     implementation 'com.google.firebase:firebase-storage:12.0.1'
 
-
     //navigation
     implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
 

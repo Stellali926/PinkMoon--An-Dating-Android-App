@@ -15,12 +15,14 @@
         <!-- contain back activity -->
         <include layout="@layout/layout_top_navigation_back"/>
 
-        <ImageView
+        <com.example.yuxuanli.pinmoon.Utils.SquareImageView
+            android:id="@+id/profileImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:id="@+id/image_matched"/>
+            android:scaleType="centerCrop"
+            android:contentDescription="Click to change profile photo"
+            android:src="@drawable/monkey"/>
 
         <TextView
             android:id="@+id/profile_name"

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yuxuanli.pinmoon">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +29,8 @@
         <activity android:name=".Login.RegisterGender" />
         <activity android:name=".Login.RegisterGenderPrefection" />
         <activity android:name=".Login.RegisterAge" />
-        <activity android:name=".Login.RegisterHobby"></activity>
+        <activity android:name=".Login.RegisterHobby" />
+        <activity android:name=".Profile.SettingsActivity"></activity>
     </application>
 
 </manifest>
