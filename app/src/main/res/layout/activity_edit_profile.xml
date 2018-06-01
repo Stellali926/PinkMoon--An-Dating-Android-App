@@ -25,7 +25,7 @@
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:contentDescription="Click to change profile photo"
-            android:src="@drawable/monkey"/>
+            android:src="@drawable/default_man"/>
 
         <TextView
             android:layout_width="match_parent"

@@ -38,7 +38,6 @@ public class Matched_Activity extends AppCompatActivity {
         setupTopNavigationView();
 
         //test
-        initAnimal();
         ProfileAdapter mAdapter = new ProfileAdapter(Matched_Activity.this, R.layout.matched_item, testList);
         ListView listView = (ListView) findViewById(R.id.matchList);
         listView.setAdapter(mAdapter);
@@ -58,7 +57,7 @@ public class Matched_Activity extends AppCompatActivity {
         intent.putExtra("email", testList.get(position).getEmail());
         intent.putExtra("sex", testList.get(position).getSex());
         intent.putExtra("number", testList.get(position).getPhone_number());
-        intent.putExtra("photo", testList.get(position).getProfile_photo() + "");
+        //intent.putExtra("photo", testList.get(position).getProfile_photo() + "");
         startActivity(intent);
     }
 
@@ -70,25 +69,5 @@ public class Matched_Activity extends AppCompatActivity {
         Menu menu = tvEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
-    }
-
-    private void initAnimal() {
-        User monkey = new User("male","female","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey, false, false, false, false,"","");
-        testList.add(monkey);
-
-        User lion = new User("male","","lion", "4099991919", "sdsd@gmail.com", "Mr.Lion", R.drawable.lion,false, false, false, false,"","");
-        testList.add(lion);
-
-        User cat = new User("female","","cat", "4099991919", "sdsd@gmail.com", "Ms.Cat", R.drawable.cat,false, false, false, false,"","");
-        testList.add(cat);
-
-        User snake = new User("male","","monkey", "4099991919", "sdsd@gmail.com", "Mr.Snake", R.drawable.snake,false, false, false, false,"","");
-        testList.add(snake);
-
-        User monkey1 = new User("male","","monkey", "4099991919", "sdsd@gmail.com", "Mr.Monkey", R.drawable.monkey,false, false, false, false,"","");
-        testList.add(monkey1);
-
-
-
     }
 }

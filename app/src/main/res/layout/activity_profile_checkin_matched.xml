@@ -16,7 +16,7 @@
         <include layout="@layout/layout_top_navigation_back"/>
 
         <com.example.yuxuanli.pinmoon.Utils.SquareImageView
-            android:id="@+id/profileImage"
+            android:id="@+id/image_matched"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"

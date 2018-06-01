@@ -27,6 +27,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -221,12 +222,23 @@ public class MainActivity extends Activity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("dislikeme").hasChild(currentUID) && !dataSnapshot.child("connections").child("likeme").hasChild(currentUID)) {
-                    Cards item = new Cards(dataSnapshot.getKey(), dataSnapshot.child("username").getValue().toString());
+                    //calculate age
+                    String dob = dataSnapshot.child("dateOfBirth").getValue().toString();
+                    String[] splitDOB = dob.split("-");
+                    int age = getAge(Integer.parseInt(splitDOB[2]),Integer.parseInt(splitDOB[0]),Integer.parseInt(splitDOB[1]));
+
+                    //initialize card view
+                    //check profile image first
+                    String profileImageUrl = lookforSex.equals("female") ? "defaultFemale" : "defaultMale";
+                    if (dataSnapshot.child("profileImageUrl").getValue() != null){
+                        profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                    }
+
+                    Cards item = new Cards(dataSnapshot.getKey(), dataSnapshot.child("username").getValue().toString(), age, profileImageUrl);
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             }
@@ -243,7 +255,23 @@ public class MainActivity extends Activity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
 
+    private int getAge(int year, int month, int day)
+    {
+        Calendar dateOfBirth = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dateOfBirth.set(year, month, day);
+
+        int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dateOfBirth.get(Calendar.DAY_OF_YEAR))
+        {
+            age--;
+        }
+
+        return age;
     }
 
 

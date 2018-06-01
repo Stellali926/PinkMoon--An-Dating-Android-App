@@ -15,8 +15,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.List;
-
 /**
  * Created by yuxuanli on 4/10/18.
  */
@@ -120,10 +118,12 @@ public class FirebaseMethods {
             myRef.child(mContext.getString(R.string.dbfemale))
                     .child(userID)
                     .setValue(user);
+
         } else {
             myRef.child(mContext.getString(R.string.dbmale))
                     .child(userID)
                     .setValue(user);
+
         }
 
     }

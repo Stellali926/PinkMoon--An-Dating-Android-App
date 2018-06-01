@@ -47,7 +47,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private ImageView mProfileImage;
     private String userId, profileImageUri;
     private Uri resultUri;
-    private String userSex = "female";
+    private String userSex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +68,11 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
         mProfileImage = (ImageView)findViewById(R.id.profileImage);
-//        int width = mProfileImage.getWidth();
-//        Log.d(TAG, "onCreate: the width is" + width);
 
-        userId = mAuth.getCurrentUser().getUid();
+        userId = mAuth.getInstance().getCurrentUser().getUid();
+        Log.d(TAG, "onCreate: user id is" + userId);
 
         checkUserSex();
-        mPhotoDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(userId);
-
-        getUserPhoto();
         mProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +91,19 @@ public class EditProfileActivity extends AppCompatActivity {
                     Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                     if (map.get("profileImageUrl") != null) {
                         profileImageUri = map.get("profileImageUrl").toString();
-                        Glide.with(getApplication()).load(profileImageUri).into(mProfileImage);
+                        Log.d(TAG, "onDataChange: the profileImageUri is" + profileImageUri);
+
+                        switch (profileImageUri) {
+                            case "defaultFemale":
+                                Glide.with(getApplication()).load(R.drawable.default_woman).into(mProfileImage);
+                                break;
+                            case "defaultMale":
+                                Glide.with(getApplication()).load(R.drawable.default_man).into(mProfileImage);
+                                break;
+                            default:
+                                Glide.with(getApplication()).load(profileImageUri).into(mProfileImage);
+                                break;
+                        }
                     }
                 }
             }
@@ -154,6 +162,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+
     public void checkUserSex() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -163,7 +172,40 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 if (dataSnapshot.getKey().equals(userId)) {
+                    Log.d(TAG, "onChildAdded: the sex is male" );
                     userSex = "male";
+                    mPhotoDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(userId);
+                    getUserPhoto();
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        DatabaseReference femaleDb = FirebaseDatabase.getInstance().getReference().child("female");
+        femaleDb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                if (dataSnapshot.getKey().equals(user.getUid())) {
+                    Log.d(TAG, "onChildAdded: the sex is female" );
+                    userSex = "female";
+                    mPhotoDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(userId);
+                    getUserPhoto();
                 }
             }
 

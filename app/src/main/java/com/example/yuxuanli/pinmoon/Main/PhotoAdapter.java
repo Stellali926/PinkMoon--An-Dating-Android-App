@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.yuxuanli.pinmoon.R;
 
 import java.util.List;
@@ -35,8 +36,19 @@ public class PhotoAdapter extends ArrayAdapter<Cards> {
         TextView name = (TextView) convertView.findViewById(R.id.name);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
 
-        name.setText(card_item.getName());
-        image.setImageResource(R.drawable.profile_image_example); // temp image
+        name.setText(card_item.getName() +  " " + card_item.getAge());
+
+        switch (card_item.getProfileImageUrl()) {
+            case "defaultFemale":
+                Glide.with(getContext()).load(R.drawable.default_woman).into(image);
+                break;
+            case "defaultMale":
+                Glide.with(getContext()).load(R.drawable.default_man).into(image);
+                break;
+            default:
+                Glide.with(getContext()).load(card_item.getProfileImageUrl()).into(image);
+                break;
+        }
 
         return convertView;
     }

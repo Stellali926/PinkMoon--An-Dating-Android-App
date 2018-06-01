@@ -1,7 +1,6 @@
 package com.example.yuxuanli.pinmoon.Utils;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by yuxuanli on 4/10/18.
@@ -12,7 +11,6 @@ public class User implements Serializable {
     private String phone_number;
     private String email;
     private String username;
-    private int profile_photo;
     private boolean sports;
     private boolean travel;
     private boolean music;
@@ -21,18 +19,18 @@ public class User implements Serializable {
     private String sex;
     private String preferSex;
     private String dateOfBirth;
+    private String profileImageUrl;
 
 
     public User() {
     }
 
-    public User(String sex, String preferSex, String user_id, String phone_number, String email, String username, int profile_photo, boolean sport, boolean travel, boolean music,boolean fish, String description, String dateOfBirth) {
+    public User(String sex, String preferSex, String user_id, String phone_number, String email, String username, boolean sport, boolean travel, boolean music,boolean fish, String description, String dateOfBirth, String profileImageUrl) {
         this.sex = sex;
         this.user_id = user_id;
         this.phone_number = phone_number;
         this.email = email;
         this.username = username;
-        this.profile_photo = profile_photo;
         this.sports = sport;
         this.travel = travel;
         this.music = music;
@@ -40,6 +38,15 @@ public class User implements Serializable {
         this.description = description;
         this.preferSex = preferSex;
         this.dateOfBirth = dateOfBirth;
+        this.profileImageUrl = profileImageUrl;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
     public String getSex() {
@@ -80,14 +87,6 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public int getProfile_photo() {
-        return profile_photo;
-    }
-
-    public void setProfile_photo(int profile_photo) {
-        this.profile_photo = profile_photo;
     }
 
     public String getDescription() {
@@ -151,7 +150,6 @@ public class User implements Serializable {
                 ", phone_number='" + phone_number + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", profile_photo=" + profile_photo +
                 ", sports=" + sports +
                 ", travel=" + travel +
                 ", music=" + music +

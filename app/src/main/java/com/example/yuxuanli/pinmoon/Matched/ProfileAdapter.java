@@ -49,7 +49,7 @@ public class ProfileAdapter extends ArrayAdapter<User>{
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        viewHolder.personPic.setImageResource(user.getProfile_photo());
+        //viewHolder.personPic.setImageResource(user.getProfile_photo());
         viewHolder.personName.setText(user.getUsername());
         viewHolder.imageButton.setFocusable(false);
 

@@ -89,6 +89,10 @@ public class RegisterGender extends AppCompatActivity {
 
         String ownSex = male ? "male" : "female";
         user.setSex(ownSex);
+        //set default photo
+        String defaultPhoto = male ? "defaultMale" : "defaultFemale";
+        user.setProfileImageUrl(defaultPhoto);
+
         Intent intent = new Intent(this, RegisterGenderPrefection.class);
         intent.putExtra("password", password);
         intent.putExtra("classUser", user);

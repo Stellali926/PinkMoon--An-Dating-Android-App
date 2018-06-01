@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,7 +25,7 @@ public class ProfileCheckinMatched extends AppCompatActivity {
         Intent intent = getIntent();
         this.name = intent.getStringExtra("name");
         this.email = intent.getStringExtra("email");
-        this.photo = Integer.parseInt(intent.getStringExtra("photo"));
+        //this.photo = Integer.parseInt(intent.getStringExtra("photo"));
         this.numbers = intent.getStringExtra("number");
 
         TextView toolbar = (TextView) findViewById(R.id.toolbartag);

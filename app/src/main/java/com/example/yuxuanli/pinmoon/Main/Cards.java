@@ -6,10 +6,30 @@ package com.example.yuxuanli.pinmoon.Main;
 
 public class Cards {
     private String userId;
-    private String name;
-    public Cards(String userId, String name) {
+    private String name, profileImageUrl;
+    private int age;
+
+    public Cards(String userId, String name, int age, String profileImageUrl) {
         this.userId = userId;
         this.name = name;
+        this.age = age;
+        this.profileImageUrl = profileImageUrl;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
     public String getUserId() {
