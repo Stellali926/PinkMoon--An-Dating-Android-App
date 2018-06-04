@@ -127,49 +127,4 @@ public class FirebaseMethods {
         }
 
     }
-
-    /**
-     * Retrieves the account settings for teh user currently logged in
-     * Database: user_account_settings node
-     * @param dataSnapshot
-     * @return
-     */
-    public UserSettings getUserSettings(DataSnapshot dataSnapshot) {
-        Log.d(TAG, "getUserAccountSettings: retrieving user account settings from firebase.");
-
-        User user = new User();
-
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-//            //users node
-//            if (ds.getKey().equals(mContext.getString(R.string.dbmale))) {
-//                Log.d(TAG, "getUserAccountSettings: datasnapshot: " + ds.child(userID));
-//
-//                user.setUsername(
-//                        ds.child(userID)
-//                                .getValue(User.class)
-//                                .getUsername()
-//                );
-//                user.setEmail(
-//                        ds.child(userID)
-//                                .getValue(User.class)
-//                                .getEmail()
-//                );
-//                user.setPhone_number(
-//                        ds.child(userID)
-//                                .getValue(User.class)
-//                                .getPhone_number()
-//                );
-//                user.setUser_id(
-//                        ds.child(userID)
-//                                .getValue(User.class)
-//                                .getUser_id()
-//                );
-//
-//                Log.d(TAG, "getUserAccountSettings: retrieved user information: " + user.toString());
-//            }
-        }
-
-        return new UserSettings(user);
-    }
 }

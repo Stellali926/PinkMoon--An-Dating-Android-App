@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,7 @@ public class MainActivity extends Activity {
     private String userSex, lookforSex;
     String currentUID;
 
+    private NotificationHelper mNotificationHelper;
     private Cards cards_data[];
     private PhotoAdapter arrayAdapter;
 
@@ -56,6 +58,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         usersDb = FirebaseDatabase.getInstance().getReference();
+        mNotificationHelper = new NotificationHelper(this);
 
         setupFirebaseAuth();
         setupTopNavigationView();
@@ -83,7 +86,6 @@ public class MainActivity extends Activity {
                 Cards obj = (Cards) dataObject;
                 String userId = obj.getUserId();
                 usersDb.child(lookforSex).child(userId).child("connections").child("dislikeme").child(currentUID).setValue(true);
-                makeToast(MainActivity.this, "Left!");
             }
 
             @Override
@@ -95,7 +97,6 @@ public class MainActivity extends Activity {
                 //check matches
                 isConnectionMatch(userId);
 
-                makeToast(MainActivity.this, "Right!");
             }
 
             @Override
@@ -128,9 +129,10 @@ public class MainActivity extends Activity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+
                     //prompt user that match
                     //later change to notification
-                    Toast.makeText(MainActivity.this, "New Connection", Toast.LENGTH_LONG).show();
+                    sendNotification();
 
                     usersDb.child(lookforSex).child(dataSnapshot.getKey()).child("connections").child("match_result").child(currentUID).setValue(true);
                     usersDb.child(userSex).child(currentUID).child("connections").child("match_result").child(dataSnapshot.getKey()).setValue(true);
@@ -147,8 +149,14 @@ public class MainActivity extends Activity {
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
 
+    public void sendNotification() {
+        NotificationCompat.Builder nb = mNotificationHelper.getChannel1Notification(mContext.getString(R.string.app_name), mContext.getString(R.string.match_notification));
+        mNotificationHelper.getManager().notify(1, nb.build());
+    }
 
-
+    /**
+     * check the user sex
+     */
     public void checkUserSex() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -216,6 +224,9 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * show the lookforsex profile photos
+     */
     public void getPotentialMatch() {
         DatabaseReference potentialMatch = FirebaseDatabase.getInstance().getReference().child(lookforSex);
         potentialMatch.addChildEventListener(new ChildEventListener() {
@@ -257,6 +268,13 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * calculate age
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     */
     private int getAge(int year, int month, int day)
     {
         Calendar dateOfBirth = Calendar.getInstance();
@@ -274,12 +292,18 @@ public class MainActivity extends Activity {
         return age;
     }
 
-
+    /**
+     * if user is null, back to check in page.
+     * @param v
+     */
     public void checkInfo(View v) {
         Intent intent = new Intent(this, ProfileCheckinMain.class);
         startActivity(intent);
     }
 
+    /**
+     * setup top tool bar
+     */
     private void setupTopNavigationView() {
         Log.d(TAG, "setupTopNavigationView: setting up TopNavigationView");
         BottomNavigationViewEx tvEx = (BottomNavigationViewEx) findViewById(R.id.topNavViewBar);
