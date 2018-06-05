@@ -18,7 +18,7 @@ public class RegisterGenderPrefection extends AppCompatActivity {
     private Button preferenceContinueButton;
     private Button maleSelectionButton;
     private Button femaleSelectionButton;
-    boolean preferMale = false;
+    boolean preferMale = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

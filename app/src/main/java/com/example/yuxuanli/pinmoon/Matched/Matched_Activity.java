@@ -86,7 +86,7 @@ public class Matched_Activity extends AppCompatActivity {
                 if (dataSnapshot.getKey().equals(userId)) {
                     Log.d(TAG, "onChildAdded: the sex is male" );
                     userSex = "male";
-                    lookforSex = "female";
+                    lookforSex = dataSnapshot.getValue(User.class).getPreferSex();
                     findMatchUID();
                 }
             }
@@ -116,7 +116,7 @@ public class Matched_Activity extends AppCompatActivity {
                 if (dataSnapshot.getKey().equals(userId)) {
                     Log.d(TAG, "onChildAdded: the sex is female" );
                     userSex = "female";
-                    lookforSex = "male";
+                    lookforSex = dataSnapshot.getValue(User.class).getPreferSex();
                     findMatchUID();
                 }
             }
@@ -187,22 +187,6 @@ public class Matched_Activity extends AppCompatActivity {
             }
         });
     }
-
-//    private void updateListView() {
-//        if (matchList.size() != 0) {
-//            mAdapter = new ProfileAdapter(Matched_Activity.this, R.layout.matched_item, matchList);
-//            ListView listView = (ListView) findViewById(R.id.matchList);
-//            listView.setAdapter(mAdapter);
-//
-//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    Log.d(TAG, "onItemClick: The list has been clicked");
-//                    checkClickedItem(position);
-//                }
-//            });
-//        }
-//    }
 
     private void checkClickedItem(int position) {
         Intent intent = new Intent(this, ProfileCheckinMatched.class);

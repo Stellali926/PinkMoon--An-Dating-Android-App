@@ -167,7 +167,7 @@ public class MainActivity extends Activity {
                     if (dataSnapshot.getKey().equals(currentUID)) {
                         Log.d(TAG, "onChildAdded: the sex is " + userSex);
                         userSex = "male";
-                        lookforSex = "female";
+                        lookforSex = dataSnapshot.getValue(User.class).getPreferSex();
                         findInterest(dataSnapshot);
                         getPotentialMatch();
                     }
@@ -195,10 +195,10 @@ public class MainActivity extends Activity {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                    if (dataSnapshot.getKey().equals(user.getUid())) {
+                    if (dataSnapshot.getKey().equals(currentUID)) {
                         Log.d(TAG, "onChildAdded: the sex is " + userSex);
                         userSex = "female";
-                        lookforSex = "male";
+                        lookforSex = dataSnapshot.getValue(User.class).getPreferSex();
                         findInterest(dataSnapshot);
                         getPotentialMatch();
                     }
