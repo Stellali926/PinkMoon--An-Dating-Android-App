@@ -42,7 +42,7 @@
             android:id="@+id/edit_aboutme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Something about Victoria"
+            android:hint="Enter information about yourself which others can see"
             android:textSize="16sp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
@@ -109,12 +109,13 @@
             android:id="@+id/edit_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4081952304"
             android:textSize="16sp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:hint="Enter Your Phone Number"
             android:paddingLeft="10dp"
             android:background="@android:color/transparent"/>
+
 
         <Button
             android:gravity="center"

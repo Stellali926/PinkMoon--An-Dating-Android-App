@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private String userId, profileImageUri;
     private Uri resultUri;
     private String userSex;
+    private EditText phoneNumber,aboutMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
         mProfileImage = (ImageView)findViewById(R.id.profileImage);
 
+        phoneNumber = (EditText)findViewById(R.id.edit_phone);
+
+        aboutMe = (EditText)findViewById(R.id.edit_aboutme);
+
         userId = mAuth.getInstance().getCurrentUser().getUid();
         Log.d(TAG, "onCreate: user id is" + userId);
 
@@ -83,13 +89,16 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void getUserPhoto(){
+    private void getUserData(){
         mPhotoDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0)
+                {
                     Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                    if (map.get("profileImageUrl") != null) {
+                    if (map.get("profileImageUrl") != null)
+                    {
                         profileImageUri = map.get("profileImageUrl").toString();
                         Log.d(TAG, "onDataChange: the profileImageUri is" + profileImageUri);
 
@@ -105,6 +114,16 @@ public class EditProfileActivity extends AppCompatActivity {
                                 break;
                         }
                     }
+                    if(map.get("phone_number")!=null)
+                    {
+                        phoneNumber.setText(map.get("phone_number").toString());
+
+                    }
+                    if(map.get("description")!=null)
+                    {
+                        aboutMe.setText(map.get("description").toString());
+
+                    }
                 }
             }
             @Override
@@ -112,6 +131,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void saveUserPhoto() {
         if (resultUri != null) {
@@ -150,6 +170,13 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void saveUserData()
+    {
+        Map userInfo = new HashMap<>();
+        userInfo.put("phone_number", phoneNumber.getText().toString());
+        userInfo.put("description", aboutMe.getText().toString());
+        mPhotoDB.updateChildren(userInfo);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -175,7 +202,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     Log.d(TAG, "onChildAdded: the sex is male" );
                     userSex = "male";
                     mPhotoDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(userId);
-                    getUserPhoto();
+                    getUserData();
                 }
             }
 
@@ -205,7 +232,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     Log.d(TAG, "onChildAdded: the sex is female" );
                     userSex = "female";
                     mPhotoDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(userId);
-                    getUserPhoto();
+                    getUserData();
+
                 }
             }
 
@@ -229,6 +257,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void saveAndBack(View view) {
         saveUserPhoto();
+        saveUserData();
         finish();
     }
 
@@ -279,4 +308,6 @@ public class EditProfileActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
+
 }
