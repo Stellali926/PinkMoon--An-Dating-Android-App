@@ -42,7 +42,7 @@
             android:id="@+id/edit_aboutme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter information about yourself which others can see"
+            android:hint="Enter information about yourself which others can see."
             android:textSize="16sp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
