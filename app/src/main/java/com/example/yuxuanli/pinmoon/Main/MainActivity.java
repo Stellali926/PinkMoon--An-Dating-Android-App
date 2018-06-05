@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
     private Context mContext = MainActivity.this;
     private String userSex, lookforSex;
     private String currentUID;
+    private boolean sports, fish, music, travel;
     private String name, bio, interest;
 
     private NotificationHelper mNotificationHelper;
@@ -167,6 +168,7 @@ public class MainActivity extends Activity {
                         Log.d(TAG, "onChildAdded: the sex is " + userSex);
                         userSex = "male";
                         lookforSex = "female";
+                        findInterest(dataSnapshot);
                         getPotentialMatch();
                     }
                 }
@@ -197,6 +199,7 @@ public class MainActivity extends Activity {
                         Log.d(TAG, "onChildAdded: the sex is " + userSex);
                         userSex = "female";
                         lookforSex = "male";
+                        findInterest(dataSnapshot);
                         getPotentialMatch();
                     }
                 }
@@ -220,6 +223,13 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void findInterest(DataSnapshot dataSnapshot) {
+        sports = dataSnapshot.getValue(User.class).isSports();
+        fish = dataSnapshot.getValue(User.class).isFishing();
+        travel = dataSnapshot.getValue(User.class).isTravel();
+        music = dataSnapshot.getValue(User.class).isMusic();
+    }
+
     /**
      * show the lookforsex profile photos
      */
@@ -230,38 +240,44 @@ public class MainActivity extends Activity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("dislikeme").hasChild(currentUID) && !dataSnapshot.child("connections").child("likeme").hasChild(currentUID)) {
                     User curUser = dataSnapshot.getValue(User.class);
+                    boolean tempTravel = curUser.isTravel();
+                    boolean tempFish = curUser.isFishing();
+                    boolean tempMusic = curUser.isMusic();
+                    boolean tempSports = curUser.isSports();
 
-                    //calculate age
-                    String dob = curUser.getDateOfBirth();
-                    CalculateAge cal = new CalculateAge(dob);
-                    int age = cal.getAge();
+                    if (tempFish == fish || tempMusic == music || tempTravel == travel || tempSports == sports) {
+                        //calculate age
+                        String dob = curUser.getDateOfBirth();
+                        CalculateAge cal = new CalculateAge(dob);
+                        int age = cal.getAge();
 
-                    //initialize card view
-                    //check profile image first
-                    String profileImageUrl = lookforSex.equals("female") ? "defaultFemale" : "defaultMale";
-                    if (dataSnapshot.child("profileImageUrl").getValue() != null){
-                        profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
-                    }
+                        //initialize card view
+                        //check profile image first
+                        String profileImageUrl = lookforSex.equals("female") ? "defaultFemale" : "defaultMale";
+                        if (dataSnapshot.child("profileImageUrl").getValue() != null){
+                            profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                        }
 
-                    String username = curUser.getUsername();
-                    String bio = curUser.getDescription();
-                    StringBuilder interest = new StringBuilder();
-                    if (curUser.isSports()) {
-                        interest.append("Sports   ");
-                    }
-                    if (curUser.isFishing()) {
-                        interest.append("Fishing   ");
-                    }
-                    if (curUser.isMusic()) {
-                        interest.append("Music   ");
-                    }
-                    if (curUser.isTravel()) {
-                        interest.append("Travel   ");
-                    }
+                        String username = curUser.getUsername();
+                        String bio = curUser.getDescription();
+                        StringBuilder interest = new StringBuilder();
+                        if (tempSports) {
+                            interest.append("Sports   ");
+                        }
+                        if (tempFish) {
+                            interest.append("Fishing   ");
+                        }
+                        if (tempMusic) {
+                            interest.append("Music   ");
+                        }
+                        if (tempTravel) {
+                            interest.append("Travel   ");
+                        }
 
-                    Cards item = new Cards(dataSnapshot.getKey(), username, age, profileImageUrl, bio, interest.toString());
-                    rowItems.add(item);
-                    arrayAdapter.notifyDataSetChanged();
+                        Cards item = new Cards(dataSnapshot.getKey(), username, age, profileImageUrl, bio, interest.toString());
+                        rowItems.add(item);
+                        arrayAdapter.notifyDataSetChanged();
+                    }
                 }
             }
             @Override

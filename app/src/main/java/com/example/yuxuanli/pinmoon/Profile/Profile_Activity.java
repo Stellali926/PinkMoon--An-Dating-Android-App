@@ -11,11 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.yuxuanli.pinmoon.Login.Login;
 import com.example.yuxuanli.pinmoon.R;
 import com.example.yuxuanli.pinmoon.Utils.TopNavigationViewHelper;
+import com.example.yuxuanli.pinmoon.Utils.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -23,17 +25,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-
-import java.util.Map;
 
 public class Profile_Activity extends AppCompatActivity {
     private static final String TAG = "Profile_Activity";
     private static final int ACTIVITY_NUM = 0;
+    static boolean active = false;
 
     private Context mContext = Profile_Activity.this;
     private ImageView imagePerson;
+    private TextView name;
 
     private String userId;
 
@@ -44,6 +45,7 @@ public class Profile_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: create the page");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
@@ -51,6 +53,7 @@ public class Profile_Activity extends AppCompatActivity {
         setupTopNavigationView();
         userId = mAuth.getInstance().getCurrentUser().getUid();
         imagePerson = findViewById(R.id.circle_profile_image);
+        name = findViewById(R.id.profile_name);
 
         findUser();
 
@@ -73,6 +76,15 @@ public class Profile_Activity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume: resume to the page");
+        findUser();
+        super.onResume();
+    }
+
+
+
     public void findUser() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -83,13 +95,15 @@ public class Profile_Activity extends AppCompatActivity {
 
                 if (dataSnapshot.getKey().equals(userId)) {
                     Log.d(TAG, "onChildAdded: the sex is male" );
-                    mPhotoDB = FirebaseDatabase.getInstance().getReference().child("male").child(userId);
-                    getUserPhoto();
+                    getUserPhotoAndName(dataSnapshot);
                 }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                if (active) {
+                    getUserPhotoAndName(dataSnapshot);
+                }
             }
 
             @Override
@@ -112,13 +126,15 @@ public class Profile_Activity extends AppCompatActivity {
 
                 if (dataSnapshot.getKey().equals(user.getUid())) {
                     Log.d(TAG, "onChildAdded: the sex is female" );
-                    mPhotoDB = FirebaseDatabase.getInstance().getReference().child("female").child(userId);
-                    getUserPhoto();
+                    getUserPhotoAndName(dataSnapshot);
                 }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                if (active) {
+                    getUserPhotoAndName(dataSnapshot);
+                }
             }
 
             @Override
@@ -136,34 +152,20 @@ public class Profile_Activity extends AppCompatActivity {
     }
 
 
-    private void getUserPhoto(){
-        mPhotoDB.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
-                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                    if (map.get("profileImageUrl") != null) {
-                        String profileImageUri = map.get("profileImageUrl").toString();
-                        Log.d(TAG, "onDataChange: the profileImageUri is" + profileImageUri);
-
-                        switch (profileImageUri) {
-                            case "defaultFemale":
-                                Glide.with(getApplication()).load(R.drawable.default_woman).into(imagePerson);
-                                break;
-                            case "defaultMale":
-                                Glide.with(getApplication()).load(R.drawable.default_man).into(imagePerson);
-                                break;
-                            default:
-                                Glide.with(getApplication()).load(profileImageUri).into(imagePerson);
-                                break;
-                        }
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+    private void getUserPhotoAndName(DataSnapshot dataSnapshot){
+        name.setText(dataSnapshot.getValue(User.class).getUsername());
+        String profileImageUrl = dataSnapshot.getValue(User.class).getProfileImageUrl();
+        switch (profileImageUrl) {
+            case "defaultFemale":
+                Glide.with(mContext).load(R.drawable.default_woman).into(imagePerson);
+                break;
+            case "defaultMale":
+                Glide.with(mContext).load(R.drawable.default_man).into(imagePerson);
+                break;
+            default:
+                Glide.with(mContext).load(profileImageUrl).into(imagePerson);
+                break;
+        }
     }
 
 
@@ -214,6 +216,7 @@ public class Profile_Activity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        active = true;
         // Check if user is signed in (non-null) and update UI accordingly.
         mAuth.addAuthStateListener(mAuthListener);
     }
@@ -221,6 +224,7 @@ public class Profile_Activity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+        active = false;
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }

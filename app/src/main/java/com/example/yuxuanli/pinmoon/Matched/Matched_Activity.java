@@ -39,6 +39,8 @@ public class Matched_Activity extends AppCompatActivity {
     private Context mContext = Matched_Activity.this;
     private String userId, userSex, lookforSex;
 
+    ProfileAdapter mAdapter;
+
     //test
     List<User> matchList = new ArrayList<>();
 
@@ -61,6 +63,18 @@ public class Matched_Activity extends AppCompatActivity {
         dbRef = FirebaseDatabase.getInstance().getReference();
 
         checkUserSex();
+
+        mAdapter = new ProfileAdapter(Matched_Activity.this, R.layout.matched_item, matchList);
+        ListView listView = (ListView) findViewById(R.id.matchList);
+        listView.setAdapter(mAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: The list has been clicked");
+                checkClickedItem(position);
+            }
+        });
     }
 
     public void checkUserSex() {
@@ -141,7 +155,7 @@ public class Matched_Activity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User user = firebaseMethods.getUser(dataSnapshot, lookforSex, uid);
                         matchList.add(user);
-                        updateListView();
+                        mAdapter.notifyDataSetChanged();
                         Log.d(TAG, "onDataChange: match list size is " + matchList.size());
                     }
 
@@ -174,21 +188,21 @@ public class Matched_Activity extends AppCompatActivity {
         });
     }
 
-    private void updateListView() {
-        if (matchList.size() != 0) {
-            ProfileAdapter mAdapter = new ProfileAdapter(Matched_Activity.this, R.layout.matched_item, matchList);
-            ListView listView = (ListView) findViewById(R.id.matchList);
-            listView.setAdapter(mAdapter);
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d(TAG, "onItemClick: The list has been clicked");
-                    checkClickedItem(position);
-                }
-            });
-        }
-    }
+//    private void updateListView() {
+//        if (matchList.size() != 0) {
+//            mAdapter = new ProfileAdapter(Matched_Activity.this, R.layout.matched_item, matchList);
+//            ListView listView = (ListView) findViewById(R.id.matchList);
+//            listView.setAdapter(mAdapter);
+//
+//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    Log.d(TAG, "onItemClick: The list has been clicked");
+//                    checkClickedItem(position);
+//                }
+//            });
+//        }
+//    }
 
     private void checkClickedItem(int position) {
         Intent intent = new Intent(this, ProfileCheckinMatched.class);
