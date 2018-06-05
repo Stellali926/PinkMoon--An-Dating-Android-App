@@ -127,4 +127,26 @@ public class FirebaseMethods {
         }
 
     }
+
+
+    public User getUser (DataSnapshot dataSnapshot, String sex, String uid) {
+        User user = new User();
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            if (ds.getKey().equals(sex)) {
+                user.setUsername(
+                        ds.child(uid)
+                            .getValue(User.class)
+                            .getUsername()
+                );
+
+                user.setProfileImageUrl(
+                        ds.child(uid)
+                                .getValue(User.class)
+                                .getProfileImageUrl()
+                );
+            }
+        }
+
+        return user;
+    }
 }

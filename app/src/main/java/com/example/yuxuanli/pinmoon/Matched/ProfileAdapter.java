@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.yuxuanli.pinmoon.R;
 import com.example.yuxuanli.pinmoon.Utils.User;
 
@@ -21,10 +22,12 @@ import java.util.List;
  */
 public class ProfileAdapter extends ArrayAdapter<User>{
     private int resourceId;
+    private Context mContext;
 
     public ProfileAdapter(@NonNull Context context, int resource, @NonNull List<User> objects) {
         super(context, resource, objects);
         resourceId = resource;
+        this.mContext = context;
     }
 
     @NonNull
@@ -49,7 +52,18 @@ public class ProfileAdapter extends ArrayAdapter<User>{
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        //viewHolder.personPic.setImageResource(user.getProfile_photo());
+        String profileImageUrl = user.getProfileImageUrl();
+        switch (profileImageUrl) {
+            case "defaultFemale":
+                Glide.with(mContext).load(R.drawable.default_woman).into(viewHolder.personPic);
+                break;
+            case "defaultMale":
+                Glide.with(mContext).load(R.drawable.default_man).into(viewHolder.personPic);
+                break;
+            default:
+                Glide.with(mContext).load(profileImageUrl).into(viewHolder.personPic);
+                break;
+        }
         viewHolder.personName.setText(user.getUsername());
         viewHolder.imageButton.setFocusable(false);
 
