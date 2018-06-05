@@ -11,11 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.yuxuanli.pinmoon.Introduction.IntroductionMain;
 import com.example.yuxuanli.pinmoon.R;
+import com.example.yuxuanli.pinmoon.Utils.CalculateAge;
 import com.example.yuxuanli.pinmoon.Utils.TopNavigationViewHelper;
+import com.example.yuxuanli.pinmoon.Utils.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -28,7 +29,6 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -38,7 +38,8 @@ public class MainActivity extends Activity {
 
     private Context mContext = MainActivity.this;
     private String userSex, lookforSex;
-    String currentUID;
+    private String currentUID;
+    private String name, bio, interest;
 
     private NotificationHelper mNotificationHelper;
     private Cards cards_data[];
@@ -117,7 +118,7 @@ public class MainActivity extends Activity {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                makeToast(MainActivity.this, "Clicked!");
+
             }
         });
 
@@ -144,11 +145,6 @@ public class MainActivity extends Activity {
             }
         });
     }
-
-    static void makeToast(Context ctx, String s){
-        Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
-    }
-
     public void sendNotification() {
         NotificationCompat.Builder nb = mNotificationHelper.getChannel1Notification(mContext.getString(R.string.app_name), mContext.getString(R.string.match_notification));
         mNotificationHelper.getManager().notify(1, nb.build());
@@ -233,10 +229,12 @@ public class MainActivity extends Activity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("dislikeme").hasChild(currentUID) && !dataSnapshot.child("connections").child("likeme").hasChild(currentUID)) {
+                    User curUser = dataSnapshot.getValue(User.class);
+
                     //calculate age
-                    String dob = dataSnapshot.child("dateOfBirth").getValue().toString();
-                    String[] splitDOB = dob.split("-");
-                    int age = getAge(Integer.parseInt(splitDOB[2]),Integer.parseInt(splitDOB[0]),Integer.parseInt(splitDOB[1]));
+                    String dob = curUser.getDateOfBirth();
+                    CalculateAge cal = new CalculateAge(dob);
+                    int age = cal.getAge();
 
                     //initialize card view
                     //check profile image first
@@ -245,7 +243,23 @@ public class MainActivity extends Activity {
                         profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                     }
 
-                    Cards item = new Cards(dataSnapshot.getKey(), dataSnapshot.child("username").getValue().toString(), age, profileImageUrl);
+                    String username = curUser.getUsername();
+                    String bio = curUser.getDescription();
+                    StringBuilder interest = new StringBuilder();
+                    if (curUser.isSports()) {
+                        interest.append("Sports   ");
+                    }
+                    if (curUser.isFishing()) {
+                        interest.append("Fishing   ");
+                    }
+                    if (curUser.isMusic()) {
+                        interest.append("Music   ");
+                    }
+                    if (curUser.isTravel()) {
+                        interest.append("Travel   ");
+                    }
+
+                    Cards item = new Cards(dataSnapshot.getKey(), username, age, profileImageUrl, bio, interest.toString());
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
@@ -266,30 +280,6 @@ public class MainActivity extends Activity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-    }
-
-    /**
-     * calculate age
-     * @param year
-     * @param month
-     * @param day
-     * @return
-     */
-    private int getAge(int year, int month, int day)
-    {
-        Calendar dateOfBirth = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-
-        dateOfBirth.set(year, month, day);
-
-        int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
-
-        if (today.get(Calendar.DAY_OF_YEAR) < dateOfBirth.get(Calendar.DAY_OF_YEAR))
-        {
-            age--;
-        }
-
-        return age;
     }
 
     /**

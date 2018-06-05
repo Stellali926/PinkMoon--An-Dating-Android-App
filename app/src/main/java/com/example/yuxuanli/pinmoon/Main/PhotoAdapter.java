@@ -1,11 +1,13 @@
 package com.example.yuxuanli.pinmoon.Main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,15 +21,16 @@ import java.util.List;
  */
 
 public class PhotoAdapter extends ArrayAdapter<Cards> {
-    Context context;
+    Context mContext;
 
 
     public PhotoAdapter(@NonNull Context context, int resource, @NonNull List<Cards> objects) {
         super(context, resource, objects);
+        this.mContext = context;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Cards card_item = getItem(position);
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final Cards card_item = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item, parent, false);
@@ -35,6 +38,19 @@ public class PhotoAdapter extends ArrayAdapter<Cards> {
 
         TextView name = (TextView) convertView.findViewById(R.id.name);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
+        ImageButton btnInfo = (ImageButton) convertView.findViewById(R.id.checkInfoBeforeMatched);
+
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ProfileCheckinMain.class);
+                intent.putExtra("name", card_item.getName() +  ", " + card_item.getAge());
+                intent.putExtra("photo", card_item.getProfileImageUrl());
+                intent.putExtra("bio", card_item.getBio());
+                intent.putExtra("interest", card_item.getInterest());
+                mContext.startActivity(intent);
+            }
+        });
 
         name.setText(card_item.getName() +  ", " + card_item.getAge());
 

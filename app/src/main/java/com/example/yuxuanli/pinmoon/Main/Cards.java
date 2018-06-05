@@ -6,14 +6,24 @@ package com.example.yuxuanli.pinmoon.Main;
 
 public class Cards {
     private String userId;
-    private String name, profileImageUrl;
+    private String name, profileImageUrl, bio, interest;
     private int age;
 
-    public Cards(String userId, String name, int age, String profileImageUrl) {
+    public Cards(String userId, String name, int age, String profileImageUrl, String bio, String interest) {
         this.userId = userId;
         this.name = name;
         this.age = age;
         this.profileImageUrl = profileImageUrl;
+        this.bio = bio;
+        this.interest = interest;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public String getInterest() {
+        return interest;
     }
 
     public int getAge() {

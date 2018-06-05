@@ -41,7 +41,6 @@ public class Matched_Activity extends AppCompatActivity {
 
     //test
     List<User> matchList = new ArrayList<>();
-//    List<String> uidList = new ArrayList<>();
 
     //firebase
     private FirebaseAuth mAuth;
@@ -176,26 +175,24 @@ public class Matched_Activity extends AppCompatActivity {
     }
 
     private void updateListView() {
-        ProfileAdapter mAdapter = new ProfileAdapter(Matched_Activity.this, R.layout.matched_item, matchList);
-        ListView listView = (ListView) findViewById(R.id.matchList);
-        listView.setAdapter(mAdapter);
+        if (matchList.size() != 0) {
+            ProfileAdapter mAdapter = new ProfileAdapter(Matched_Activity.this, R.layout.matched_item, matchList);
+            ListView listView = (ListView) findViewById(R.id.matchList);
+            listView.setAdapter(mAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: The list has been clicked");
-                checkClickedItem(position);
-            }
-        });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.d(TAG, "onItemClick: The list has been clicked");
+                    checkClickedItem(position);
+                }
+            });
+        }
     }
 
     private void checkClickedItem(int position) {
         Intent intent = new Intent(this, ProfileCheckinMatched.class);
-//        intent.putExtra("name", matchList.get(position).getUsername());
-//        intent.putExtra("email", matchList.get(position).getEmail());
-//        intent.putExtra("sex", matchList.get(position).getSex());
-//        intent.putExtra("number", matchList.get(position).getPhone_number());
-//        //intent.putExtra("photo", testList.get(position).getProfile_photo() + "");
+        intent.putExtra("classUser", matchList.get(position));
         startActivity(intent);
     }
 

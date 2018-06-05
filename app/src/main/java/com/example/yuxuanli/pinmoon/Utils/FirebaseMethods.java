@@ -144,6 +144,49 @@ public class FirebaseMethods {
                                 .getValue(User.class)
                                 .getProfileImageUrl()
                 );
+
+                user.setDateOfBirth(
+                        ds.child(uid)
+                                .getValue(User.class)
+                                .getDateOfBirth()
+                );
+
+                user.setDescription(
+                        ds.child(uid)
+                                .getValue(User.class)
+                                .getDescription()
+                );
+
+                user.setSports(
+                        ds.child(uid)
+                                .getValue(User.class)
+                                .isSports()
+                );
+                user.setFishing(
+                        ds.child(uid)
+                                .getValue(User.class)
+                                .isFishing()
+                );
+                user.setTravel(
+                        ds.child(uid)
+                                .getValue(User.class)
+                                .isTravel()
+                );
+                user.setMusic(
+                        ds.child(uid)
+                                .getValue(User.class)
+                                .isMusic()
+                );
+                user.setEmail(
+                        ds.child(uid)
+                                .getValue(User.class)
+                                .getEmail()
+                );
+                user.setPhone_number(
+                        ds.child(uid)
+                                .getValue(User.class)
+                                .getPhone_number()
+                );
             }
         }
 

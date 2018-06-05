@@ -56,7 +56,7 @@
             android:paddingLeft="10dp"/>
 
         <TextView
-            android:id="@+id/bio_beforematch"
+            android:id="@+id/bio_match"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Something about Victoria"
@@ -76,7 +76,7 @@
             android:paddingLeft="10dp"/>
 
         <TextView
-            android:id="@+id/interests_beforematch"
+            android:id="@+id/interests_match"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dancing, Traveling, Love"
