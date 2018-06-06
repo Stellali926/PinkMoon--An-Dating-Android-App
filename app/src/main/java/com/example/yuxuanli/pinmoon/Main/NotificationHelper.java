@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.example.yuxuanli.pinmoon.Matched.Matched_Activity;
 import com.example.yuxuanli.pinmoon.R;
@@ -40,8 +41,11 @@ public class NotificationHelper extends ContextWrapper {
         channel1.setLightColor(Color.GREEN);
         channel1.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
         channel1.setVibrationPattern(new long[]{0, 1000, 1000, 1000});
+        Log.d("notification", "we are in create channels1 \n " );
 
         getManager().createNotificationChannel(channel1);
+        Log.d("notification", "we are in create channels2 \n " );
+
     }
 
     public NotificationManager getManager() {
@@ -55,12 +59,18 @@ public class NotificationHelper extends ContextWrapper {
     public NotificationCompat.Builder getChannel1Notification(String title, String message) {
         Intent intent = new Intent(this, Matched_Activity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
+        Log.d("notification", "we are in getChaneel1Notification function \n " );
 
         return new NotificationCompat.Builder(getApplicationContext(), channel1ID)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setSmallIcon(R.mipmap.ic_app)
+                .setSmallIcon(getNotificationIcon())
                 .setAutoCancel(true)
                 .setContentIntent(pi);
+    }
+    //compare SDK version to set the app icon as silhouette or regular one
+    private int getNotificationIcon() {
+        boolean useWhiteIcon = (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP);
+        return useWhiteIcon ? R.drawable.notification_app_icon : R.mipmap.ic_appicon;
     }
 }

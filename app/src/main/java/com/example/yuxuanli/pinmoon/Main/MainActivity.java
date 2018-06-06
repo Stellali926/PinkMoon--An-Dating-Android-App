@@ -148,6 +148,7 @@ public class MainActivity extends Activity {
     }
     public void sendNotification() {
         NotificationCompat.Builder nb = mNotificationHelper.getChannel1Notification(mContext.getString(R.string.app_name), mContext.getString(R.string.match_notification));
+
         mNotificationHelper.getManager().notify(1, nb.build());
     }
 

@@ -131,62 +131,32 @@ public class FirebaseMethods {
 
     public User getUser (DataSnapshot dataSnapshot, String sex, String uid) {
         User user = new User();
+
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
             if (ds.getKey().equals(sex)) {
-                user.setUsername(
-                        ds.child(uid)
-                            .getValue(User.class)
-                            .getUsername()
-                );
 
-                user.setProfileImageUrl(
-                        ds.child(uid)
-                                .getValue(User.class)
-                                .getProfileImageUrl()
-                );
+                User temp = ds.child(uid).getValue(User.class);
 
-                user.setDateOfBirth(
-                        ds.child(uid)
-                                .getValue(User.class)
-                                .getDateOfBirth()
-                );
+                user.setUsername(temp.getUsername());
 
-                user.setDescription(
-                        ds.child(uid)
-                                .getValue(User.class)
-                                .getDescription()
-                );
+                user.setProfileImageUrl(temp.getProfileImageUrl());
 
-                user.setSports(
-                        ds.child(uid)
-                                .getValue(User.class)
-                                .isSports()
-                );
-                user.setFishing(
-                        ds.child(uid)
-                                .getValue(User.class)
-                                .isFishing()
-                );
-                user.setTravel(
-                        ds.child(uid)
-                                .getValue(User.class)
-                                .isTravel()
-                );
-                user.setMusic(
-                        ds.child(uid)
-                                .getValue(User.class)
-                                .isMusic()
-                );
-                user.setEmail(
-                        ds.child(uid)
-                                .getValue(User.class)
-                                .getEmail()
-                );
-                user.setPhone_number(
-                        ds.child(uid)
-                                .getValue(User.class)
-                                .getPhone_number()
-                );
+                user.setDateOfBirth(temp.getDateOfBirth());
+
+                user.setDescription(temp.getDescription());
+
+                user.setSports(temp.isSports());
+
+                user.setFishing(temp.isFishing());
+
+                user.setTravel(temp.isTravel());
+
+                user.setMusic(temp.isMusic());
+
+                user.setEmail(temp.getEmail());
+
+                user.setPhone_number(temp.getPhone_number());
             }
         }
 
