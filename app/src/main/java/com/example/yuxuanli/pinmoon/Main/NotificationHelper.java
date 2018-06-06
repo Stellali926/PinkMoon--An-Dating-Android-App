@@ -66,6 +66,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setContentText(message)
                 .setSmallIcon(getNotificationIcon())
                 .setAutoCancel(true)
+                .setColor(getResources().getColor(R.color.colorPrimary))
                 .setContentIntent(pi);
     }
     //compare SDK version to set the app icon as silhouette or regular one
