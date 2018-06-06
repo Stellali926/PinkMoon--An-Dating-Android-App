@@ -2,10 +2,12 @@ package com.example.yuxuanli.pinmoon.Matched;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,9 +22,11 @@ public class ProfileCheckinMatched extends AppCompatActivity {
 
     private User user;
     private Context mContext = ProfileCheckinMatched.this;
+    private Button sendSMSButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_checkin_matched);
 
@@ -32,6 +36,8 @@ public class ProfileCheckinMatched extends AppCompatActivity {
 
         TextView toolbar = (TextView) findViewById(R.id.toolbartag);
         toolbar.setText("Matched");
+
+        sendSMSButton = (Button) findViewById(R.id.send_sms);
 
         TextView profile_name = (TextView) findViewById(R.id.profile_name);
         TextView profile_distance = (TextView) findViewById(R.id.profile_distance);
@@ -85,5 +91,22 @@ public class ProfileCheckinMatched extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        sendSMSButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                sendSMS(user.getPhone_number().toString(),user.getUsername().toString());
+            }
+        });
+
+    }
+
+    // This method will be called when send sms button in matched profile will be clicked. This open the default sms app.
+    private void sendSMS(String phoneNumber, String userName)
+    {
+        Intent smsAppOpener = new Intent(Intent.ACTION_VIEW);
+        smsAppOpener.setData(Uri.parse("sms:" +  phoneNumber));
+        smsAppOpener.putExtra("sms_body", "Hi "+userName+", \n"+ "Love to have a coffee with you!!!!");
+        startActivity(smsAppOpener);
     }
 }
