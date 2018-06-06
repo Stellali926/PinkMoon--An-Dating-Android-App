@@ -2,6 +2,7 @@ package com.example.yuxuanli.pinmoon.Matched;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -53,8 +54,22 @@ public class ProfileCheckinMatched extends AppCompatActivity {
 
         profile_name.setText(user.getUsername() + ", " + age);
         profile_email.setText(user.getEmail());
-        profile_numbers.setText(user.getPhone_number());
-        profile_bio.setText(user.getDescription());
+
+
+        if (user.getDescription().length() != 0)
+        {
+            profile_bio.setText(user.getDescription());
+        }
+
+        if (user.getPhone_number().length() != 0)
+        {
+            profile_numbers.setText(user.getPhone_number());
+        }
+        else
+        {
+            sendSMSButton.setEnabled(false);
+        }
+
         //append interests
         StringBuilder interest = new StringBuilder();
         if (user.isSports()) {

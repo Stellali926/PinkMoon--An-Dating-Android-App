@@ -59,7 +59,7 @@
             android:id="@+id/bio_match"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Something about Victoria"
+            android:hint="User has not updated the Bio!!!"
             android:textSize="16sp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="4049010888"
+                android:hint="Phone Number is not updated!!!"
                 android:layout_weight="1"/>
 
             <Button
