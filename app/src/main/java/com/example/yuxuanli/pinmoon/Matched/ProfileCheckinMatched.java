@@ -22,7 +22,7 @@ public class ProfileCheckinMatched extends AppCompatActivity {
 
     private User user;
     private Context mContext = ProfileCheckinMatched.this;
-    private Button sendSMSButton;
+    private Button sendSMSButton, sendEmailButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,6 +38,7 @@ public class ProfileCheckinMatched extends AppCompatActivity {
         toolbar.setText("Matched");
 
         sendSMSButton = (Button) findViewById(R.id.send_sms);
+        sendEmailButton = (Button) findViewById(R.id.send_email);
 
         TextView profile_name = (TextView) findViewById(R.id.profile_name);
         TextView profile_distance = (TextView) findViewById(R.id.profile_distance);
@@ -99,6 +100,14 @@ public class ProfileCheckinMatched extends AppCompatActivity {
             }
         });
 
+        sendEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                sendEmail(user.getEmail().toString(),user.getUsername().toString());
+            }
+        });
+
     }
 
     // This method will be called when send sms button in matched profile will be clicked. This open the default sms app.
@@ -109,4 +118,16 @@ public class ProfileCheckinMatched extends AppCompatActivity {
         smsAppOpener.putExtra("sms_body", "Hi "+userName+", \n"+ "Love to have a coffee with you!!!!");
         startActivity(smsAppOpener);
     }
+
+    // This method will be called when send email button in matched profile will be clicked. This open the default email app.
+    private void sendEmail(String email, String userName)
+    {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("plain/text");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { email });
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Regarding our Pink Moon Match!!!");
+        intent.putExtra(Intent.EXTRA_TEXT, "Hi "+userName+", \n"+ "Love to have a coffee with you!!!!");
+        startActivity(Intent.createChooser(intent, ""));
+    }
+
 }
