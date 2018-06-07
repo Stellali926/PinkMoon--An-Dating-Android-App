@@ -8,16 +8,20 @@
     tools:context="com.example.yuxuanli.pinmoon.Profile.SettingsActivity">
 
     <!--<include layout="@layout/layout_top_navigation_back"/>-->
-    <include layout="@layout/layout_top_navigation_back"/>
+    <include layout="@layout/layout_top_navigation_back" />
+    
+
+
+
 
     <Button
-        android:gravity="center"
-        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:background="@drawable/white_rounded_button"
+        android:gravity="center"
+        android:onClick="Logout"
         android:text="LOG OUT"
-        android:textColor="@color/white"
-        android:onClick="Logout" />
+        android:textColor="@color/white" />
 
 </LinearLayout>
