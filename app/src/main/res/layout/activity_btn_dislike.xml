@@ -11,9 +11,10 @@
     <!-- top navigation -->
     <include layout="@layout/layout_top_navigation_view"/>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:rotation="-20"
         android:layout_weight="1"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
@@ -22,16 +23,27 @@
         android:background="@drawable/rounded_corner_layout"
         >
 
-        <com.lorentzos.flingswipe.SwipeFlingAdapterView
-            android:id="@+id/frame"
-            android:background="@color/white"
+        <ImageView
+            android:id="@+id/dislike"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:rotation_degrees="15.5"
-            tools:context=".MyActivity"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent" />
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_swipe_right_indicator"
+            android:layout_margin="10dp"
+            android:layout_gravity="right"
+            android:text="NOPE"
+            android:textSize="40sp"
+            android:textColor="@color/dislikered"
+            android:background="@drawable/dislike_border"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"/>
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,8 +66,7 @@
                 android:layout_alignParentTop="true"
                 android:background="@drawable/round_button_with_border"
                 android:padding="10dp"
-                android:src="@drawable/ic_dislike"
-                android:onClick="DislikeBtn"/>
+                android:src="@drawable/ic_dislike" />
 
             <ImageButton
                 android:id="@+id/commentbtn"

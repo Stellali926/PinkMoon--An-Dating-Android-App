@@ -70,9 +70,11 @@ public class MainActivity extends Activity {
         rowItems  = new ArrayList<Cards>();
         arrayAdapter = new PhotoAdapter(this, R.layout.item, rowItems);
 
+        updateSwipeCard();
+    }
+
+    private void updateSwipeCard() {
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
-
-
         flingContainer.setAdapter(arrayAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
@@ -113,16 +115,6 @@ public class MainActivity extends Activity {
                 view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
             }
         });
-
-
-        // Optionally add an OnItemClickListener
-        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClicked(int itemPosition, Object dataObject) {
-
-            }
-        });
-
     }
 
     private void isConnectionMatch(String userId) {
@@ -238,7 +230,7 @@ public class MainActivity extends Activity {
         potentialMatch.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("dislikeme").hasChild(currentUID) && !dataSnapshot.child("connections").child("likeme").hasChild(currentUID)) {
+                if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("dislikeme").hasChild(currentUID) && !dataSnapshot.child("connections").child("likeme").hasChild(currentUID) && !dataSnapshot.getKey().equals(currentUID)) {
                     User curUser = dataSnapshot.getValue(User.class);
                     boolean tempTravel = curUser.isTravel();
                     boolean tempFish = curUser.isFishing();
@@ -296,6 +288,41 @@ public class MainActivity extends Activity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    public void DislikeBtn(View v) {
+        if (rowItems.size() != 0) {
+            Cards card_item = rowItems.get(0);
+
+            String userId = card_item.getUserId();
+            usersDb.child(lookforSex).child(userId).child("connections").child("dislikeme").child(currentUID).setValue(true);
+
+            rowItems.remove(0);
+            arrayAdapter.notifyDataSetChanged();
+
+            Intent btnClick = new Intent(mContext, BtnDislikeActivity.class);
+            btnClick.putExtra("url", card_item.getProfileImageUrl());
+            startActivity(btnClick);
+        }
+    }
+
+    public void LikeBtn(View v) {
+        if (rowItems.size() != 0) {
+            Cards card_item = rowItems.get(0);
+
+            String userId = card_item.getUserId();
+            usersDb.child(lookforSex).child(userId).child("connections").child("likeme").child(currentUID).setValue(true);
+
+            //check matches
+            isConnectionMatch(userId);
+
+            rowItems.remove(0);
+            arrayAdapter.notifyDataSetChanged();
+
+            Intent btnClick = new Intent(mContext, BtnLikeActivity.class);
+            btnClick.putExtra("url", card_item.getProfileImageUrl());
+            startActivity(btnClick);
+        }
     }
 
     /**

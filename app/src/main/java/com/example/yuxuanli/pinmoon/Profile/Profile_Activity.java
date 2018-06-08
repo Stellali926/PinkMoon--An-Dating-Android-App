@@ -78,9 +78,9 @@ public class Profile_Activity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        super.onResume();
         Log.d(TAG, "onResume: resume to the page");
         findUser();
-        super.onResume();
     }
 
 
@@ -217,6 +217,7 @@ public class Profile_Activity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         active = true;
+        Log.d(TAG, "onStart: " + active);
         // Check if user is signed in (non-null) and update UI accordingly.
         mAuth.addAuthStateListener(mAuthListener);
     }
@@ -225,9 +226,19 @@ public class Profile_Activity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         active = false;
+        Log.d(TAG, "onStop: " + active);
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        active = false;
+        Log.d(TAG, "onDestroy: " + active);
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
 }
