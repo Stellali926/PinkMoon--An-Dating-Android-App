@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.RadioGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.yuxuanli.pinmoon.Login.Login;
@@ -51,6 +52,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private String userSex;
     private EditText phoneNumber,aboutMe;
 
+    private RadioGroup userSexSelection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +77,8 @@ public class EditProfileActivity extends AppCompatActivity {
         phoneNumber = (EditText)findViewById(R.id.edit_phone);
 
         aboutMe = (EditText)findViewById(R.id.edit_aboutme);
+
+        userSexSelection = (RadioGroup) findViewById(R.id.radioGroupUserSex);
 
         userId = mAuth.getInstance().getCurrentUser().getUid();
         Log.d(TAG, "onCreate: user id is" + userId);
@@ -122,6 +127,18 @@ public class EditProfileActivity extends AppCompatActivity {
                     if(map.get("description")!=null)
                     {
                         aboutMe.setText(map.get("description").toString());
+
+                    }
+                    if(map.get("sex") !=null)
+                    {
+                       if(map.get("sex").toString().equalsIgnoreCase("male"))
+                       {
+                           userSexSelection.check(R.id.maleSelction);
+                       }
+                       else
+                       {
+                           userSexSelection.check(R.id.femaleSelection);
+                       }
 
                     }
                 }
@@ -175,6 +192,16 @@ public class EditProfileActivity extends AppCompatActivity {
         Map userInfo = new HashMap<>();
         userInfo.put("phone_number", phoneNumber.getText().toString());
         userInfo.put("description", aboutMe.getText().toString());
+
+//Updation of sex is not allowed once profile is created, so this code is commented.
+//        if (((RadioButton)findViewById(userSexSelection.getCheckedRadioButtonId())).getText().toString().equalsIgnoreCase("male"))
+//        {
+//            userInfo.put("sex","male");
+//        }
+//        else
+//        {
+//            userInfo.put("sex","female");
+//        }
         mPhotoDB.updateChildren(userInfo);
     }
 

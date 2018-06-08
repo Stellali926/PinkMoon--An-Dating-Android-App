@@ -83,16 +83,29 @@
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"/>
 
-        <EditText
-            android:id="@+id/edit_sex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Women"
-            android:textSize="16sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:background="@android:color/transparent"/>
+            <RadioGroup
+                android:id="@+id/radioGroupUserSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/maleSelction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:enabled="false"/>
+
+                <RadioButton
+                    android:id="@+id/femaleSelection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:enabled="false"/>
+
+            </RadioGroup>
 
         <TextView
             android:layout_width="match_parent"
