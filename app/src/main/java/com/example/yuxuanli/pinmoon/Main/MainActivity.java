@@ -48,7 +48,8 @@ public class MainActivity extends Activity {
 
     private Context mContext = MainActivity.this;
     private String userSex, lookforSex;
-    private double latitude, longtitude;
+    private double latitude = 37.349642;
+    private double longtitude = -121.938987;
     private String currentUID;
     private boolean sports, fish, music, travel;
     private String name, bio, interest;
@@ -332,6 +333,7 @@ public class MainActivity extends Activity {
                         }
 
                         //calculate distance
+                        gps = new GPS(mContext);
                         Log.d(TAG, "onChildAdded: the x, y of user is " + latitude + ", " + longtitude);
                         Log.d(TAG, "onChildAdded: the other user x y is " + curUser.getLatitude() + ", " + curUser.getLongtitude());
                         int distance = gps.calculateDistance(latitude, longtitude, curUser.getLatitude(), curUser.getLongtitude());

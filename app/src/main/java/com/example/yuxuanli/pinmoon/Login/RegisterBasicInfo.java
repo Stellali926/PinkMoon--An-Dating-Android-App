@@ -68,8 +68,8 @@ public class RegisterBasicInfo extends AppCompatActivity{
                 {
                     //find geo location
                     Location location = gps.getLocation();
-                    double latitude = 0;
-                    double longtitude = 0;
+                    double latitude = 37.349642;
+                    double longtitude = -121.938987;
                     if (location != null) {
                         latitude = location.getLatitude();
                         longtitude = location.getLongitude();
