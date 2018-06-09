@@ -1,17 +1,22 @@
 package com.example.yuxuanli.pinmoon.Main;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.yuxuanli.pinmoon.Introduction.IntroductionMain;
 import com.example.yuxuanli.pinmoon.R;
@@ -39,6 +44,7 @@ import java.util.Map;
 public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     private static final int ACTIVITY_NUM = 1;
+    final private int MY_PERMISSIONS_REQUEST_LOCATION = 123;
 
     private Context mContext = MainActivity.this;
     private String userSex, lookforSex;
@@ -68,7 +74,6 @@ public class MainActivity extends Activity {
 
         usersDb = FirebaseDatabase.getInstance().getReference();
         mNotificationHelper = new NotificationHelper(this);
-        gps = new GPS(this);
 
         setupFirebaseAuth();
         setupTopNavigationView();
@@ -82,29 +87,49 @@ public class MainActivity extends Activity {
     }
 
     private void updateLocation(){
-        Location location = gps.getLocation();
 
-        // if gps does not have last know location then we need to set it to zero.
-        if (location != null)
-        {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
+        } else {
+            gps = new GPS(this);
+            Location location = gps.getLocation();
             this.latitude = location.getLatitude();
+            this.longtitude = location.getLongitude();
 
-            this.longtitude  = location.getLongitude();
+            DatabaseReference curDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(currentUID);
+            Map userLoc = new HashMap<>();
+            userLoc.put("latitude", latitude);
+            userLoc.put("longtitude", longtitude);
+            curDB.updateChildren(userLoc);
         }
-        else
-        {
-            // Santa Clara University default location
-            this.latitude = 37.349642;
-            this.longtitude = -121.938987;
-        }
-
-
-        DatabaseReference curDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(currentUID);
-        Map userLoc = new HashMap<>();
-        userLoc.put("latitude", latitude);
-        userLoc.put("longtitude", longtitude);
-        curDB.updateChildren(userLoc);
     }
+
+        @Override
+        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+            switch (requestCode) {
+                case MY_PERMISSIONS_REQUEST_LOCATION: {
+                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED) {
+
+                            updateLocation();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Location Permission Denied. You have to give permission inorder to know the user range ", Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    }
+                }
+
+                default:
+                    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        }
 
     private void updateSwipeCard() {
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
@@ -307,6 +332,8 @@ public class MainActivity extends Activity {
                         }
 
                         //calculate distance
+                        Log.d(TAG, "onChildAdded: the x, y of user is " + latitude + ", " + longtitude);
+                        Log.d(TAG, "onChildAdded: the other user x y is " + curUser.getLatitude() + ", " + curUser.getLongtitude());
                         int distance = gps.calculateDistance(latitude, longtitude, curUser.getLatitude(), curUser.getLongtitude());
 
                         Cards item = new Cards(dataSnapshot.getKey(), username, age, profileImageUrl, bio, interest.toString(), distance);

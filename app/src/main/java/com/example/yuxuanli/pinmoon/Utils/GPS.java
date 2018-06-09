@@ -28,12 +28,15 @@ public class GPS implements LocationListener {
                 ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            return ;
+            return;
         }
-        mlocation = mLocationManager.getLastKnownLocation(mLocationManager.NETWORK_PROVIDER);
 
+        mlocation = mLocationManager.getLastKnownLocation(mLocationManager.NETWORK_PROVIDER);
         onLocationChanged(mlocation);
     }
+
+
+
 
     @Override
     public void onLocationChanged(Location location) {
