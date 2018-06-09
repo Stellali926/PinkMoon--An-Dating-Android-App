@@ -60,16 +60,36 @@
             android:text="My Interests:"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/edit_interest"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:text="Interest"
-            android:textSize="16sp" />
+            android:layout_height="match_parent">
+            <CheckBox android:id="@+id/checkbox_sports"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Sports"
+                android:onClick="onHobbyCheckBoxClicked"/>
+            <CheckBox android:id="@+id/checkbox_travel"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Travel"
+                android:onClick="onHobbyCheckBoxClicked"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <CheckBox android:id="@+id/checkbox_music"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Music"
+                android:onClick="onHobbyCheckBoxClicked"/>
+            <CheckBox android:id="@+id/checkbox_fishing"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Fishing"
+                android:onClick="onHobbyCheckBoxClicked"/>
+        </LinearLayout>
 
 
         <TextView

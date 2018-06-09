@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -53,6 +54,11 @@ public class EditProfileActivity extends AppCompatActivity {
     private Uri resultUri;
     private String userSex;
     private EditText phoneNumber,aboutMe;
+    private CheckBox sportsCheckBox,travelCheckBox,musicCheckBox,fishingCheckBox;
+    private boolean isSportsClicked = false;
+    private boolean isTravelClicked = false;
+    private boolean isFishingClicked = false;
+    private boolean isMusicClicked = false;
 
     private RadioGroup userSexSelection;
 
@@ -81,6 +87,11 @@ public class EditProfileActivity extends AppCompatActivity {
         aboutMe = (EditText)findViewById(R.id.edit_aboutme);
 
         userSexSelection = (RadioGroup) findViewById(R.id.radioGroupUserSex);
+
+        sportsCheckBox = (CheckBox)findViewById(R.id.checkbox_sports);
+        travelCheckBox = (CheckBox)findViewById(R.id.checkbox_travel);
+        musicCheckBox = (CheckBox)findViewById(R.id.checkbox_music);
+        fishingCheckBox = (CheckBox)findViewById(R.id.checkbox_fishing);
 
         userId = mAuth.getInstance().getCurrentUser().getUid();
         Log.d(TAG, "onCreate: user id is" + userId);
@@ -143,6 +154,50 @@ public class EditProfileActivity extends AppCompatActivity {
                        }
 
                     }
+                    if(Boolean.valueOf(map.get("sports").toString()) == true)
+                    {
+                        isSportsClicked = true;
+                        sportsCheckBox.setChecked(true);
+                    }
+                    else
+                    {
+                        isSportsClicked = false;
+                        sportsCheckBox.setChecked(false);
+                    }
+
+                    if(Boolean.valueOf(map.get("travel").toString()) == true)
+                    {
+                        isTravelClicked = true;
+                        travelCheckBox.setChecked(true);
+
+                    }
+                    else
+                    {
+                        isTravelClicked = false;
+                        travelCheckBox.setChecked(false);
+                    }
+                    if(Boolean.valueOf(map.get("fishing").toString()) == true)
+                    {
+                        isFishingClicked = true;
+                        fishingCheckBox.setChecked(true);
+
+                    }
+                    else
+                    {
+                        isFishingClicked = false;
+                        fishingCheckBox.setChecked(false);
+                    }
+                    if(Boolean.valueOf(map.get("music").toString()) == true)
+                    {
+                        isMusicClicked = true;
+                        musicCheckBox.setChecked(true);
+
+                    }
+                    else
+                    {
+                        isMusicClicked = false;
+                        musicCheckBox.setChecked(false);
+                    }
                 }
             }
             @Override
@@ -194,6 +249,10 @@ public class EditProfileActivity extends AppCompatActivity {
         Map userInfo = new HashMap<>();
         userInfo.put("phone_number", phoneNumber.getText().toString());
         userInfo.put("description", aboutMe.getText().toString());
+        userInfo.put("sports",isSportsClicked);
+        userInfo.put("travel",isTravelClicked);
+        userInfo.put("music",isMusicClicked);
+        userInfo.put("fishing",isFishingClicked);
 
 //Updation of sex is not allowed once profile is created, so this code is commented.
 //        if (((RadioButton)findViewById(userSexSelection.getCheckedRadioButtonId())).getText().toString().equalsIgnoreCase("male"))
@@ -336,6 +395,54 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    public void onHobbyCheckBoxClicked(View view)
+    {
+        boolean checked = ((CheckBox) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.checkbox_sports:
+                if (checked)
+                {
+                    isSportsClicked = true;
+                }
+                else
+                {
+                    isSportsClicked = false;
+                }
+                break;
+            case R.id.checkbox_fishing:
+                if (checked)
+                {
+                    isFishingClicked = true;
+                }
+                else
+                {
+                    isFishingClicked = false;
+                }
+                break;
+            case R.id.checkbox_music:
+                if (checked)
+                {
+                    isMusicClicked = true;
+                }
+                else
+                {
+                    isMusicClicked = false;
+                }
+                break;
+            case R.id.checkbox_travel:
+                if (checked)
+                {
+                    isTravelClicked = true;
+                }
+                else
+                {
+                    isTravelClicked = false;
+                }
+                break;
         }
     }
 
