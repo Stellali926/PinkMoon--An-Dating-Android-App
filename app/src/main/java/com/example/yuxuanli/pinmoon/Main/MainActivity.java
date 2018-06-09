@@ -99,8 +99,13 @@ public class MainActivity extends Activity {
         } else {
             gps = new GPS(this);
             Location location = gps.getLocation();
-            this.latitude = location.getLatitude();
-            this.longtitude = location.getLongitude();
+            // made the changes to set location only if location object is not null, else default location is taken
+            if (location!=null)
+            {
+                this.latitude = location.getLatitude();
+                this.longtitude = location.getLongitude();
+            }
+
 
             DatabaseReference curDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(currentUID);
             Map userLoc = new HashMap<>();
