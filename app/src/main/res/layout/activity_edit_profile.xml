@@ -10,126 +10,137 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical"
+        android:focusable="false"
         android:focusableInTouchMode="true"
-        android:focusable="false">
+        android:orientation="vertical">
 
 
         <!--<include layout="@layout/layout_top_navigation_back"/>-->
-        <include layout="@layout/layout_top_navigation_back"/>
+        <include layout="@layout/layout_top_navigation_back" />
 
         <com.example.yuxuanli.pinmoon.Utils.SquareImageView
             android:id="@+id/profileImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
             android:contentDescription="Click to change profile photo"
-            android:src="@drawable/default_man"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_man" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_grey"
             android:layout_gravity="center_vertical"
-            android:text="About Me:"
-            android:textSize="18sp"
-            android:paddingTop="5dp"
+            android:background="@color/light_grey"
             android:paddingBottom="5dp"
-            android:paddingLeft="10dp"/>
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="About Me:"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/edit_aboutme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:hint="Enter information about yourself which others can see."
-            android:textSize="16sp"
-            android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
-            android:background="@android:color/transparent"/>
+            android:paddingTop="10dp"
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_grey"
             android:layout_gravity="center_vertical"
-            android:text="My Interests:"
-            android:textSize="18sp"
-            android:paddingTop="5dp"
+            android:background="@color/light_grey"
             android:paddingBottom="5dp"
-            android:paddingLeft="10dp"/>
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="My Interests:"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/edit_interest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Interest"
-            android:textSize="16sp"
-            android:paddingTop="10dp"
+            android:background="@android:color/transparent"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
-            android:background="@android:color/transparent"/>
+            android:paddingTop="10dp"
+            android:text="Interest"
+            android:textSize="16sp" />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_grey"
             android:layout_gravity="center_vertical"
-            android:text="I AM:"
-            android:textSize="18sp"
-            android:paddingTop="5dp"
+            android:background="@color/light_grey"
             android:paddingBottom="5dp"
-            android:paddingLeft="10dp"/>
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="I AM:"
+            android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/edit_sex"
+        <RadioGroup
+            android:id="@+id/radioGroupUserSex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Women"
-            android:textSize="16sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:background="@android:color/transparent"/>
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/maleSelction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/femaleSelection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Female" />
+
+        </RadioGroup>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_grey"
             android:layout_gravity="center_vertical"
-            android:text="Phone Number:"
-            android:textSize="18sp"
-            android:paddingTop="5dp"
+            android:background="@color/light_grey"
             android:paddingBottom="5dp"
-            android:paddingLeft="10dp"/>
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="Phone Number:"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/edit_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:background="@android:color/transparent"
             android:hint="Enter Your Phone Number"
+            android:paddingBottom="10dp"
             android:paddingLeft="10dp"
-            android:background="@android:color/transparent"/>
+            android:paddingTop="10dp"
+            android:textSize="16sp" />
 
 
         <Button
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@drawable/white_rounded_button"
-            android:text="Save and back"
-            android:textColor="@color/white"
+            android:gravity="center"
             android:onClick="saveAndBack"
-            android:layout_gravity="center" />
+            android:text="Save and back"
+            android:textColor="@color/white" />
 
     </LinearLayout>
-
-
 
 
 </ScrollView>
