@@ -160,13 +160,13 @@ public class Profile_Activity extends AppCompatActivity {
         if (Util.isOnMainThread()) {
             switch (profileImageUrl) {
                 case "defaultFemale":
-                    Glide.with(mContext).load(R.drawable.default_woman).into(imagePerson);
+                    Glide.with(getApplicationContext()).load(R.drawable.default_woman).into(imagePerson);
                     break;
                 case "defaultMale":
-                    Glide.with(mContext).load(R.drawable.default_man).into(imagePerson);
+                    Glide.with(getApplicationContext()).load(R.drawable.default_man).into(imagePerson);
                     break;
                 default:
-                    Glide.with(mContext).load(profileImageUrl).into(imagePerson);
+                    Glide.with(getApplicationContext()).load(profileImageUrl).into(imagePerson);
                     break;
             }
         }

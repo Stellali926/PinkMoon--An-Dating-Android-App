@@ -355,14 +355,6 @@ public class MainActivity extends Activity {
         }
     }
 
-//    /**
-//     * if user is null, back to check in page.
-//     * @param v
-//     */
-//    public void checkInfo(View v) {
-//        Intent intent = new Intent(this, ProfileCheckinMain.class);
-//        startActivity(intent);
-//    }
 
     /**
      * setup top tool bar
@@ -389,6 +381,11 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(mContext, IntroductionMain.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     /**
