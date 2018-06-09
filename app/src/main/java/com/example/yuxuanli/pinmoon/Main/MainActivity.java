@@ -83,8 +83,21 @@ public class MainActivity extends Activity {
 
     private void updateLocation(){
         Location location = gps.getLocation();
-        this.latitude = location.getLatitude();
-        this.longtitude = location.getLongitude();
+
+        // if gps does not have last know location then we need to set it to zero.
+        if (location != null)
+        {
+            this.latitude = location.getLatitude();
+
+            this.longtitude  = location.getLongitude();
+        }
+        else
+        {
+            // Santa Clara University default location
+            this.latitude = 37.349642;
+            this.longtitude = -121.938987;
+        }
+
 
         DatabaseReference curDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(currentUID);
         Map userLoc = new HashMap<>();

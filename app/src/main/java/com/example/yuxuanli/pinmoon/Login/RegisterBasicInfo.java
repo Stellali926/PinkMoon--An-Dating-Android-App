@@ -28,6 +28,8 @@ public class RegisterBasicInfo extends AppCompatActivity{
     private EditText mEmail, mPassword, mUsername;
     private TextView loadingPleaseWait;
     private Button btnRegister;
+    private double latitude, longitude;
+
     GPS gps;
 
     //firebase
@@ -68,9 +70,23 @@ public class RegisterBasicInfo extends AppCompatActivity{
                 {
                     //find geo location
                     Location location = gps.getLocation();
+                     // if gps does not have last know location then we need to set it to zero.
+                     if (location != null)
+                     {
+                         latitude = location.getLatitude();
+                         longitude  = location.getLongitude();
+                     }
+                     else
+                     {
+                         // Santa Clara University default location
+                         latitude = 37.349642;
+                         longitude = -121.938987;
+                     }
 
                     Intent intent = new Intent(RegisterBasicInfo.this, RegisterGender.class);
-                    User user = new User("","","","",email, username, false, false, false, false, "","","", location.getLatitude(), location.getLongitude());
+
+
+                    User user = new User("","","","",email, username, false, false, false, false, "","","", latitude, longitude);
                     intent.putExtra("password", password);
                     intent.putExtra("classUser", user);
                     startActivity(intent);
