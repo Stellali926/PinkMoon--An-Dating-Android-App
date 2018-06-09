@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.example.yuxuanli.pinmoon.Login.Login;
 import com.example.yuxuanli.pinmoon.R;
 import com.example.yuxuanli.pinmoon.Utils.FirebaseMethods;
+import com.example.yuxuanli.pinmoon.Utils.GPS;
 import com.example.yuxuanli.pinmoon.Utils.TopNavigationViewHelper;
 import com.example.yuxuanli.pinmoon.Utils.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,11 +39,12 @@ public class Matched_Activity extends AppCompatActivity {
 
     private Context mContext = Matched_Activity.this;
     private String userId, userSex, lookforSex;
+    private double latitude, longtitude;
 
     ProfileAdapter mAdapter;
 
-    //test
     List<User> matchList = new ArrayList<>();
+    GPS gps;
 
     //firebase
     private FirebaseAuth mAuth;
@@ -59,6 +61,7 @@ public class Matched_Activity extends AppCompatActivity {
         setupFirebaseAuth();
         setupTopNavigationView();
         userId = mAuth.getInstance().getCurrentUser().getUid();
+        gps = new GPS(this);
 
         dbRef = FirebaseDatabase.getInstance().getReference();
 
@@ -86,6 +89,10 @@ public class Matched_Activity extends AppCompatActivity {
                 if (dataSnapshot.getKey().equals(userId)) {
                     Log.d(TAG, "onChildAdded: the sex is male" );
                     userSex = "male";
+                    //update the location
+                    latitude = dataSnapshot.getValue(User.class).getLatitude();
+                    longtitude = dataSnapshot.getValue(User.class).getLongtitude();
+
                     lookforSex = dataSnapshot.getValue(User.class).getPreferSex();
                     findMatchUID();
                 }
@@ -116,6 +123,11 @@ public class Matched_Activity extends AppCompatActivity {
                 if (dataSnapshot.getKey().equals(userId)) {
                     Log.d(TAG, "onChildAdded: the sex is female" );
                     userSex = "female";
+
+                    //update the location
+                    latitude = dataSnapshot.getValue(User.class).getLatitude();
+                    longtitude = dataSnapshot.getValue(User.class).getLongtitude();
+
                     lookforSex = dataSnapshot.getValue(User.class).getPreferSex();
                     findMatchUID();
                 }
@@ -189,8 +201,14 @@ public class Matched_Activity extends AppCompatActivity {
     }
 
     private void checkClickedItem(int position) {
+
+        User user = matchList.get(position);
+        //calculate distance
+        int distance = gps.calculateDistance(latitude, longtitude, user.getLatitude(), user.getLongtitude());
+
         Intent intent = new Intent(this, ProfileCheckinMatched.class);
-        intent.putExtra("classUser", matchList.get(position));
+        intent.putExtra("classUser", user);
+        intent.putExtra("distance", distance);
         startActivity(intent);
     }
 

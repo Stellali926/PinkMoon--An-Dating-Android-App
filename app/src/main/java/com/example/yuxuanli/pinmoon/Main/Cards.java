@@ -8,14 +8,20 @@ public class Cards {
     private String userId;
     private String name, profileImageUrl, bio, interest;
     private int age;
+    private int distance;
 
-    public Cards(String userId, String name, int age, String profileImageUrl, String bio, String interest) {
+    public Cards(String userId, String name, int age, String profileImageUrl, String bio, String interest, int distance) {
         this.userId = userId;
         this.name = name;
         this.age = age;
         this.profileImageUrl = profileImageUrl;
         this.bio = bio;
         this.interest = interest;
+        this.distance = distance;
+    }
+
+    public int getDistance() {
+        return distance;
     }
 
     public String getBio() {

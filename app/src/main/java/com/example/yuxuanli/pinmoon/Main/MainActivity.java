@@ -3,6 +3,7 @@ package com.example.yuxuanli.pinmoon.Main;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import com.example.yuxuanli.pinmoon.Introduction.IntroductionMain;
 import com.example.yuxuanli.pinmoon.R;
 import com.example.yuxuanli.pinmoon.Utils.CalculateAge;
+import com.example.yuxuanli.pinmoon.Utils.GPS;
 import com.example.yuxuanli.pinmoon.Utils.TopNavigationViewHelper;
 import com.example.yuxuanli.pinmoon.Utils.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +31,9 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends Activity {
@@ -38,6 +42,7 @@ public class MainActivity extends Activity {
 
     private Context mContext = MainActivity.this;
     private String userSex, lookforSex;
+    private double latitude, longtitude;
     private String currentUID;
     private boolean sports, fish, music, travel;
     private String name, bio, interest;
@@ -48,6 +53,8 @@ public class MainActivity extends Activity {
 
     ListView listView;
     List<Cards> rowItems;
+
+    GPS gps;
 
     //firebase
     private FirebaseAuth mAuth;
@@ -61,6 +68,7 @@ public class MainActivity extends Activity {
 
         usersDb = FirebaseDatabase.getInstance().getReference();
         mNotificationHelper = new NotificationHelper(this);
+        gps = new GPS(this);
 
         setupFirebaseAuth();
         setupTopNavigationView();
@@ -71,6 +79,18 @@ public class MainActivity extends Activity {
         arrayAdapter = new PhotoAdapter(this, R.layout.item, rowItems);
 
         updateSwipeCard();
+    }
+
+    private void updateLocation(){
+        Location location = gps.getLocation();
+        this.latitude = location.getLatitude();
+        this.longtitude = location.getLongitude();
+
+        DatabaseReference curDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(currentUID);
+        Map userLoc = new HashMap<>();
+        userLoc.put("latitude", latitude);
+        userLoc.put("longtitude", longtitude);
+        curDB.updateChildren(userLoc);
     }
 
     private void updateSwipeCard() {
@@ -160,6 +180,9 @@ public class MainActivity extends Activity {
                     if (dataSnapshot.getKey().equals(currentUID)) {
                         Log.d(TAG, "onChildAdded: the sex is " + userSex);
                         userSex = "male";
+                        //updateLocation
+                        updateLocation();
+
                         lookforSex = dataSnapshot.getValue(User.class).getPreferSex();
                         findInterest(dataSnapshot);
                         getPotentialMatch();
@@ -191,6 +214,9 @@ public class MainActivity extends Activity {
                     if (dataSnapshot.getKey().equals(currentUID)) {
                         Log.d(TAG, "onChildAdded: the sex is " + userSex);
                         userSex = "female";
+                        //updateLocation
+                        updateLocation();
+
                         lookforSex = dataSnapshot.getValue(User.class).getPreferSex();
                         findInterest(dataSnapshot);
                         getPotentialMatch();
@@ -267,7 +293,10 @@ public class MainActivity extends Activity {
                             interest.append("Travel   ");
                         }
 
-                        Cards item = new Cards(dataSnapshot.getKey(), username, age, profileImageUrl, bio, interest.toString());
+                        //calculate distance
+                        int distance = gps.calculateDistance(latitude, longtitude, curUser.getLatitude(), curUser.getLongtitude());
+
+                        Cards item = new Cards(dataSnapshot.getKey(), username, age, profileImageUrl, bio, interest.toString(), distance);
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
                     }
@@ -326,14 +355,14 @@ public class MainActivity extends Activity {
         }
     }
 
-    /**
-     * if user is null, back to check in page.
-     * @param v
-     */
-    public void checkInfo(View v) {
-        Intent intent = new Intent(this, ProfileCheckinMain.class);
-        startActivity(intent);
-    }
+//    /**
+//     * if user is null, back to check in page.
+//     * @param v
+//     */
+//    public void checkInfo(View v) {
+//        Intent intent = new Intent(this, ProfileCheckinMain.class);
+//        startActivity(intent);
+//    }
 
     /**
      * setup top tool bar

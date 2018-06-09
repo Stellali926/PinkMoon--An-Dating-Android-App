@@ -36,11 +36,16 @@ public class ProfileCheckinMain extends AppCompatActivity {
         ImageView profileImage = findViewById(R.id.profileImage);
         TextView profileBio = findViewById(R.id.bio_beforematch);
         TextView profileInterest = findViewById(R.id.interests_beforematch);
+        TextView profileDistance = findViewById(R.id.distance_main);
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String bio = intent.getStringExtra("bio");
         String interest = intent.getStringExtra("interest");
+        int distance = intent.getIntExtra("distance", 1);
+        String append = (distance == 1) ? "mile away" : "miles away";
+
+        profileDistance.setText(distance + " " + append);
         profileName.setText(name);
         profileBio.setText(bio);
         profileInterest.setText(interest);

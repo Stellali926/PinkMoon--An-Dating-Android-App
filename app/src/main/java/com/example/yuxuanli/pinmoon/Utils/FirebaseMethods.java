@@ -157,6 +157,10 @@ public class FirebaseMethods {
                 user.setEmail(temp.getEmail());
 
                 user.setPhone_number(temp.getPhone_number());
+
+                user.setLatitude(temp.getLatitude());
+
+                user.setLongtitude(temp.getLongtitude());
             }
         }
 

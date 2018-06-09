@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.util.Util;
 import com.example.yuxuanli.pinmoon.Login.Login;
 import com.example.yuxuanli.pinmoon.R;
 import com.example.yuxuanli.pinmoon.Utils.TopNavigationViewHelper;
@@ -155,16 +156,19 @@ public class Profile_Activity extends AppCompatActivity {
     private void getUserPhotoAndName(DataSnapshot dataSnapshot){
         name.setText(dataSnapshot.getValue(User.class).getUsername());
         String profileImageUrl = dataSnapshot.getValue(User.class).getProfileImageUrl();
-        switch (profileImageUrl) {
-            case "defaultFemale":
-                Glide.with(mContext).load(R.drawable.default_woman).into(imagePerson);
-                break;
-            case "defaultMale":
-                Glide.with(mContext).load(R.drawable.default_man).into(imagePerson);
-                break;
-            default:
-                Glide.with(mContext).load(profileImageUrl).into(imagePerson);
-                break;
+
+        if (Util.isOnMainThread()) {
+            switch (profileImageUrl) {
+                case "defaultFemale":
+                    Glide.with(mContext).load(R.drawable.default_woman).into(imagePerson);
+                    break;
+                case "defaultMale":
+                    Glide.with(mContext).load(R.drawable.default_man).into(imagePerson);
+                    break;
+                default:
+                    Glide.with(mContext).load(profileImageUrl).into(imagePerson);
+                    break;
+            }
         }
     }
 

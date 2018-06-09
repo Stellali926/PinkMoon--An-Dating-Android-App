@@ -1,6 +1,7 @@
 package com.example.yuxuanli.pinmoon.Profile;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -40,6 +41,7 @@ import java.util.Map;
 public class EditProfileActivity extends AppCompatActivity {
     private static final String TAG = "EditProfileActivity";
 
+    private Context mContext = EditProfileActivity.this;
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -258,7 +260,8 @@ public class EditProfileActivity extends AppCompatActivity {
     public void saveAndBack(View view) {
         saveUserPhoto();
         saveUserData();
-        finish();
+        Intent intent = new Intent(mContext, Profile_Activity.class);
+        startActivity(intent);
     }
 
     //----------------------------------------Firebase----------------------------------------

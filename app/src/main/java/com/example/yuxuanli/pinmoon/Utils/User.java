@@ -20,12 +20,14 @@ public class User implements Serializable {
     private String preferSex;
     private String dateOfBirth;
     private String profileImageUrl;
+    private double latitude;
+    private double longtitude;
 
 
     public User() {
     }
 
-    public User(String sex, String preferSex, String user_id, String phone_number, String email, String username, boolean sport, boolean travel, boolean music,boolean fish, String description, String dateOfBirth, String profileImageUrl) {
+    public User(String sex, String preferSex, String user_id, String phone_number, String email, String username, boolean sport, boolean travel, boolean music,boolean fish, String description, String dateOfBirth, String profileImageUrl, double latitude, double longtitude) {
         this.sex = sex;
         this.user_id = user_id;
         this.phone_number = phone_number;
@@ -39,6 +41,24 @@ public class User implements Serializable {
         this.preferSex = preferSex;
         this.dateOfBirth = dateOfBirth;
         this.profileImageUrl = profileImageUrl;
+        this.latitude = latitude;
+        this.longtitude = longtitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongtitude() {
+        return longtitude;
+    }
+
+    public void setLongtitude(double longtitude) {
+        this.longtitude = longtitude;
     }
 
     public String getProfileImageUrl() {

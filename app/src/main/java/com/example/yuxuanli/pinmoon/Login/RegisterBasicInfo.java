@@ -2,6 +2,7 @@ package com.example.yuxuanli.pinmoon.Login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.yuxuanli.pinmoon.R;
 import com.example.yuxuanli.pinmoon.Utils.FirebaseMethods;
+import com.example.yuxuanli.pinmoon.Utils.GPS;
 import com.example.yuxuanli.pinmoon.Utils.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +28,7 @@ public class RegisterBasicInfo extends AppCompatActivity{
     private EditText mEmail, mPassword, mUsername;
     private TextView loadingPleaseWait;
     private Button btnRegister;
+    GPS gps;
 
     //firebase
     private FirebaseAuth mAuth;
@@ -46,6 +49,8 @@ public class RegisterBasicInfo extends AppCompatActivity{
         mContext = RegisterBasicInfo.this;
         Log.d(TAG, "onCreate: started");
 
+        gps = new GPS(this);
+
         initWidgets();
         init();
     }
@@ -61,8 +66,11 @@ public class RegisterBasicInfo extends AppCompatActivity{
 
                 if (checkInputs(email, username, password))
                 {
+                    //find geo location
+                    Location location = gps.getLocation();
+
                     Intent intent = new Intent(RegisterBasicInfo.this, RegisterGender.class);
-                    User user = new User("","","","",email, username, false, false, false, false, "","","");
+                    User user = new User("","","","",email, username, false, false, false, false, "","","", location.getLatitude(), location.getLongitude());
                     intent.putExtra("password", password);
                     intent.putExtra("classUser", user);
                     startActivity(intent);

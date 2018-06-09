@@ -2,7 +2,6 @@ package com.example.yuxuanli.pinmoon.Matched;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +23,7 @@ public class ProfileCheckinMatched extends AppCompatActivity {
     private User user;
     private Context mContext = ProfileCheckinMatched.this;
     private Button sendSMSButton, sendEmailButton;
+    private int distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,6 +33,8 @@ public class ProfileCheckinMatched extends AppCompatActivity {
 
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("classUser");
+        distance = intent.getIntExtra("distance", 1);
+
         Log.d(TAG, "onCreate: user name is" + user.getUsername());
 
         TextView toolbar = (TextView) findViewById(R.id.toolbartag);
@@ -54,6 +56,9 @@ public class ProfileCheckinMatched extends AppCompatActivity {
 
         profile_name.setText(user.getUsername() + ", " + age);
         profile_email.setText(user.getEmail());
+
+        String append = (distance == 1) ? "mile away" : "miles away";
+        profile_distance.setText(distance + " " + append);
 
 
         if (user.getDescription().length() != 0)
