@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.yuxuanli.pinmoon.Login.Login;
@@ -30,6 +33,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class Matched_Activity extends AppCompatActivity {
@@ -39,11 +43,14 @@ public class Matched_Activity extends AppCompatActivity {
 
     private Context mContext = Matched_Activity.this;
     private String userId, userSex, lookforSex;
-    private double latitude, longtitude;
+    private double latitude = 37.349642;
+    private double longtitude = -121.938987;
+    private EditText search;
 
     ProfileAdapter mAdapter;
 
     List<User> matchList = new ArrayList<>();
+    List<User> copyList = new ArrayList<>();
     GPS gps;
 
     //firebase
@@ -60,9 +67,10 @@ public class Matched_Activity extends AppCompatActivity {
         firebaseMethods = new FirebaseMethods(mContext);
         setupFirebaseAuth();
         setupTopNavigationView();
+        searchFunc();
+
         userId = mAuth.getInstance().getCurrentUser().getUid();
         gps = new GPS(this);
-
         dbRef = FirebaseDatabase.getInstance().getReference();
 
         checkUserSex();
@@ -78,6 +86,44 @@ public class Matched_Activity extends AppCompatActivity {
                 checkClickedItem(position);
             }
         });
+    }
+
+    private void searchFunc(){
+        search = (EditText) findViewById(R.id.searchBar);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchText();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                searchText();
+            }
+        });
+    }
+
+    private void searchText() {
+        String text = search.getText().toString().toLowerCase(Locale.getDefault());
+        if (text.length() != 0) {
+            if (matchList.size() != 0) {
+                matchList.clear();
+                for (User user : copyList) {
+                    if (user.getUsername().toLowerCase(Locale.getDefault()).contains(text)) {
+                        matchList.add(user);
+                    }
+                }
+            }
+        } else {
+            matchList.clear();
+            matchList.addAll(copyList);
+        }
+
+        mAdapter.notifyDataSetChanged();
     }
 
     public void checkUserSex() {
@@ -166,9 +212,12 @@ public class Matched_Activity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User user = firebaseMethods.getUser(dataSnapshot, lookforSex, uid);
-                        matchList.add(user);
-                        mAdapter.notifyDataSetChanged();
-                        Log.d(TAG, "onDataChange: match list size is " + matchList.size());
+                        if (!checkDup(user)) {
+                            matchList.add(user);
+                            copyList.add(user);
+                            mAdapter.notifyDataSetChanged();
+                            Log.d(TAG, "onDataChange: match list size is " + matchList.size());
+                        }
                     }
 
                     @Override
@@ -198,6 +247,18 @@ public class Matched_Activity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private boolean checkDup(User user) {
+        if (matchList.size() != 0) {
+            for (User u : matchList) {
+                if (u.getUsername() == user.getUsername()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private void checkClickedItem(int position) {

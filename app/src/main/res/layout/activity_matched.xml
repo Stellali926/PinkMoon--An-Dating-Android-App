@@ -21,7 +21,7 @@
         android:focusableInTouchMode="true"
         android:focusable="false">
 
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

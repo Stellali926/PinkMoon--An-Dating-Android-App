@@ -106,7 +106,6 @@ public class MainActivity extends Activity {
                 this.longtitude = location.getLongitude();
             }
 
-
             DatabaseReference curDB = FirebaseDatabase.getInstance().getReference().child(userSex).child(currentUID);
             Map userLoc = new HashMap<>();
             userLoc.put("latitude", latitude);
