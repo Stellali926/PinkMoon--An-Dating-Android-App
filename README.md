@@ -1,5 +1,5 @@
 # PinkMoon
-An tinder like android dating app which runs in the android platforms avaiable for android version 4.0 or up.
+A tinder like android dating app which runs in the android platforms avaiable for android version 4.0 or up.
 
 ## Demo Screenshots
 
