@@ -17,7 +17,7 @@ A tinder like android dating app which runs in the android platforms avaiable fo
 - If both of you like each other, you can see the secured info of that person, and send either email or SMS to her/him
 - Real time video chat with that person (TBD)
 
-### License
+## License
 Copyright 2018 Spring COEN268_SCU_Project team 6:
 - Yuxuan Li
 - Vikas Radhakrishna Shetty
